@@ -23,30 +23,45 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"fallsilkworms.github.io","root":"/","images":"/images","scheme":"Muse","version":"8.2.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
   </script>
-<meta name="description" content="等一场秋风再起，花开如绎">
-<meta property="og:type" content="website">
-<meta property="og:title" content="fallsilkworm&#39;s Blog">
-<meta property="og:url" content="http://fallsilkworms.github.io/index.html">
+<meta name="description" content="（主要只是对Low等级而言） Burp Force解析：暴力破解用户名和密码 方法1：bp爆破最常规常见的方法，主要是运用bp抓包后发送到爆破模块用字典进行爆破即可 （找了个看起来很全的字典GitHub - arthur0081&#x2F;Blasting_dictionary: 爆破字典） 这是破解方法所对应的一些适用条件： low就很轻松爆出，新手狂喜  方法2：sql注入绕过之后再看到其他博客才知道能">
+<meta property="og:type" content="article">
+<meta property="og:title" content="dvwa初体验">
+<meta property="og:url" content="http://fallsilkworms.github.io/2021/05/21/dvwa%E5%88%9D%E4%BD%93%E9%AA%8C/index.html">
 <meta property="og:site_name" content="fallsilkworm&#39;s Blog">
-<meta property="og:description" content="等一场秋风再起，花开如绎">
+<meta property="og:description" content="（主要只是对Low等级而言） Burp Force解析：暴力破解用户名和密码 方法1：bp爆破最常规常见的方法，主要是运用bp抓包后发送到爆破模块用字典进行爆破即可 （找了个看起来很全的字典GitHub - arthur0081&#x2F;Blasting_dictionary: 爆破字典） 这是破解方法所对应的一些适用条件： low就很轻松爆出，新手狂喜  方法2：sql注入绕过之后再看到其他博客才知道能">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/05/21/dvwa%E5%88%9D%E4%BD%93%E9%AA%8C/QQ%E6%88%AA%E5%9B%BE20210521201711.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/05/21/dvwa%E5%88%9D%E4%BD%93%E9%AA%8C/QQ%E6%88%AA%E5%9B%BE20210521204045.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/05/21/dvwa%E5%88%9D%E4%BD%93%E9%AA%8C/image-20210521211237230.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/05/21/dvwa%E5%88%9D%E4%BD%93%E9%AA%8C/QQ%E6%88%AA%E5%9B%BE20210523200955.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/05/21/dvwa%E5%88%9D%E4%BD%93%E9%AA%8C/QQ%E6%88%AA%E5%9B%BE20210523201200.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/05/21/dvwa%E5%88%9D%E4%BD%93%E9%AA%8C/QQ%E6%88%AA%E5%9B%BE20210523202059.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/05/21/dvwa%E5%88%9D%E4%BD%93%E9%AA%8C/QQ%E6%88%AA%E5%9B%BE20210523201706.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/05/21/dvwa%E5%88%9D%E4%BD%93%E9%AA%8C/QQ%E6%88%AA%E5%9B%BE20210523202903.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/05/21/dvwa%E5%88%9D%E4%BD%93%E9%AA%8C/QQ%E6%88%AA%E5%9B%BE20210523203304.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/05/21/dvwa%E5%88%9D%E4%BD%93%E9%AA%8C/QQ%E6%88%AA%E5%9B%BE20210523204739.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/05/21/dvwa%E5%88%9D%E4%BD%93%E9%AA%8C/QQ%E6%88%AA%E5%9B%BE20210523204801.png">
+<meta property="article:published_time" content="2021-05-21T11:45:09.000Z">
+<meta property="article:modified_time" content="2021-05-23T12:50:41.989Z">
 <meta property="article:author" content="YX">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://fallsilkworms.github.io/2021/05/21/dvwa%E5%88%9D%E4%BD%93%E9%AA%8C/QQ%E6%88%AA%E5%9B%BE20210521201711.png">
 
 
-<link rel="canonical" href="http://fallsilkworms.github.io/">
+<link rel="canonical" href="http://fallsilkworms.github.io/2021/05/21/dvwa%E5%88%9D%E4%BD%93%E9%AA%8C/">
 
 
 <script class="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
-<title>fallsilkworm's Blog</title>
+<title>dvwa初体验 | fallsilkworm's Blog</title>
   
 
 
@@ -144,7 +159,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -157,6 +172,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Burp-Force"><span class="nav-number">1.</span> <span class="nav-text">Burp Force</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%951%EF%BC%9Abp%E7%88%86%E7%A0%B4"><span class="nav-number">1.1.</span> <span class="nav-text">方法1：bp爆破</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%952%EF%BC%9Asql%E6%B3%A8%E5%85%A5%E7%BB%95%E8%BF%87"><span class="nav-number">1.2.</span> <span class="nav-text">方法2：sql注入绕过</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%BA%E4%BE%BF%E5%A4%8D%E4%B9%A0%E4%B8%8BGET%E5%92%8CPOST%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.1.</span> <span class="nav-text">顺便复习下GET和POST方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#GET-%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">GET 方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#POST-%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">POST 方法</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Command-Injection"><span class="nav-number">2.</span> <span class="nav-text">Command Injection</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#File-Upload"><span class="nav-number">3.</span> <span class="nav-text">File Upload</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#XSS"><span class="nav-number">4.</span> <span class="nav-text">XSS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#XSS%EF%BC%88Reflect%EF%BC%89"><span class="nav-number">4.1.</span> <span class="nav-text">XSS（Reflect）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XSS%EF%BC%88Store%EF%BC%89"><span class="nav-number">4.2.</span> <span class="nav-text">XSS（Store）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XSS%EF%BC%88DOM%EF%BC%89"><span class="nav-number">4.3.</span> <span class="nav-text">XSS（DOM）</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -202,16 +218,17 @@
 </noscript>
 
 
-    <div class="main-inner index posts-expand">
+    <div class="main-inner post posts-expand">
 
-    
+
+  
 
 
 <div class="post-block">
   
   
 
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://fallsilkworms.github.io/2021/05/21/dvwa%E5%88%9D%E4%BD%93%E9%AA%8C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -224,9 +241,9 @@
       <meta itemprop="name" content="fallsilkworm's Blog">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/05/21/dvwa%E5%88%9D%E4%BD%93%E9%AA%8C/" class="post-title-link" itemprop="url">dvwa初体验</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          dvwa初体验
+        </h1>
 
         <div class="post-meta-container">
           <div class="post-meta">
@@ -256,7 +273,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>（主要只是对Low等级而言）</p>
+        <p>（主要只是对Low等级而言）</p>
 <h1 id="Burp-Force"><a href="#Burp-Force" class="headerlink" title="Burp Force"></a>Burp Force</h1><p>解析：暴力破解用户名和密码</p>
 <h2 id="方法1：bp爆破"><a href="#方法1：bp爆破" class="headerlink" title="方法1：bp爆破"></a>方法1：bp爆破</h2><p>最常规常见的方法，主要是运用bp抓包后发送到爆破模块用字典进行爆破即可</p>
 <p>（找了个看起来很全的字典<a target="_blank" rel="noopener" href="https://github.com/arthur0081/Blasting_dictionary">GitHub - arthur0081/Blasting_dictionary: 爆破字典</a>）</p>
@@ -366,7 +383,6 @@ if( isset( $_POST[ 'btnSign' ] ) ) {
 <p><img src="/2021/05/21/dvwa%E5%88%9D%E4%BD%93%E9%AA%8C/QQ%E6%88%AA%E5%9B%BE20210523204801.png" alt="QQ截图20210523204801"></p>
 <p>（有意思）</p>
 
-      
     </div>
 
     
@@ -374,227 +390,22 @@ if( isset( $_POST[ 'btnSign' ] ) ) {
     
 
     <footer class="post-footer">
-        <div class="post-eof"></div>
-      
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/01/25/bugku%E5%88%B7%E9%A2%98%E4%BD%93%E4%BC%9A/" rel="prev" title="bugku刷题体会">
+                  <i class="fa fa-chevron-left"></i> bugku刷题体会
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
     </footer>
   </article>
 </div>
 
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://fallsilkworms.github.io/2021/01/25/bugku%E5%88%B7%E9%A2%98%E4%BD%93%E4%BC%9A/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="YX">
-      <meta itemprop="description" content="等一场秋风再起，花开如绎">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="fallsilkworm's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/01/25/bugku%E5%88%B7%E9%A2%98%E4%BD%93%E4%BC%9A/" class="post-title-link" itemprop="url">bugku刷题体会</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-01-25 22:31:06" itemprop="dateCreated datePublished" datetime="2021-01-25T22:31:06+08:00">2021-01-25</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-01-26 18:11:29" itemprop="dateModified" datetime="2021-01-26T18:11:29+08:00">2021-01-26</time>
-      </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="web"><a href="#web" class="headerlink" title="web"></a>web</h1><p>参考来源：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/5fd1b624fd7a">https://www.jianshu.com/p/5fd1b624fd7a</a></p>
-<p>基本操作：看源码，发送http请求，bp抓包，bp爆破，bp伪造cookie，目前遇到的就是这些。重要的是读懂代码和题目意思。一般打开一道题基本都离不开看源码抓包改包，然后才就用各种web工具。所以f12和bp是打开的基本姿势。</p>
-<h2 id="（1）看源码"><a href="#（1）看源码" class="headerlink" title="（1）看源码"></a>（1）看源码</h2><p><u><strong>考点：所学知识的集合。</strong></u></p>
-<p>   最简单的类型，直接查看网页源码得知很多信息，可以在直接修改网页东西（web2）新手基本只能自己做的就是这种题型。基本上都包含其他的知识点一起出题，能直接得到flag的极少。需要具备的能力是看懂各种加密后的代码。</p>
-<p>例子：</p>
-<p>web1：直接查看。</p>
-<p>web2：查看后修改限制值。</p>
-<p>web6：查看后Unicode解码。</p>
-<p>web13：查看后发现下面断开的代码，合上后用url解码</p>
-<h2 id="（2）发送http请求"><a href="#（2）发送http请求" class="headerlink" title="（2）发送http请求"></a>（2）发送http请求</h2><p><u><strong>考点：get/post传参，php函数，php弱比较，文件包含漏洞等</strong></u></p>
-<p>  是相对很难的题型，需要具备的能力是基本认识url，html，php，JavaScript，python等多种语言，读懂代码后才能做题。现在是刚接触，未了解到这些语言各种的应用，做起来很吃力很懵逼。而且有非常多的题目都是这种题型。</p>
-<p>例子：</p>
-<p>web3：get传参。读代码后知道，**<u>?what=flag</u>**</p>
-<p>web4：post传参。使用hackbar直接传参。</p>
-<p>web5：php弱比较。读代码后，由“if($num==1)”知道了这是php弱比较，逻辑矛盾即可。所以用%00截断， <strong><u>?num=1%00</u></strong>     其实后面跟一个不是数字的也得。</p>
-<p>web8：文件包含。读代码。发现var_dump()，file()函数，还有include，属于php包含。</p>
-<p><img src="/2021/01/25/bugku%E5%88%B7%E9%A2%98%E4%BD%93%E4%BC%9A/image-20210125212546874.png" alt="image-20210125212546874"></p>
-<p><img src="/2021/01/25/bugku%E5%88%B7%E9%A2%98%E4%BD%93%E4%BC%9A/image-20210125212916480.png" alt="image-20210125212916480"></p>
-<p><img src="/2021/01/25/bugku%E5%88%B7%E9%A2%98%E4%BD%93%E4%BC%9A/image-20210125211944681.png" alt="image-20210125211944681"></p>
-<p>由于不会直接看题解</p>
-<p><img src="/2021/01/25/bugku%E5%88%B7%E9%A2%98%E4%BD%93%E4%BC%9A/image-20210120010319644.png" alt="image-20210120010319644"></p>
-<p>request直接可以用get传参 <strong>?hello=file(‘flag.php’)</strong> .</p>
-<p>web9：刚刚来以为类似web8，所以我用web8的方法直接传参失败了，其实也是新的东西。查看题解。</p>
-<p><img src="/2021/01/25/bugku%E5%88%B7%E9%A2%98%E4%BD%93%E4%BC%9A/image-20210125213400738.png" alt="image-20210125213400738"></p>
-<p>思路就是，把单个变量变成全局变量调用就看见了。</p>
-<p><img src="/2021/01/25/bugku%E5%88%B7%E9%A2%98%E4%BD%93%E4%BC%9A/image-20210125213832278.png" alt="image-20210125213832278"></p>
-<p>web14：看源码抓包啥也没有，直接看题解说用到php://filter读取文件后直接构造payload。**?file=php://filter/read=convert.base64-encode/resource=index.php**</p>
-<p><img src="/2021/01/25/bugku%E5%88%B7%E9%A2%98%E4%BD%93%E4%BC%9A/image-20210125215900875.png" alt="image-20210125215900875"></p>
-<p><img src="/2021/01/25/bugku%E5%88%B7%E9%A2%98%E4%BD%93%E4%BC%9A/image-20210125220019199.png" alt="image-20210125220019199"></p>
-<h2 id="（3）用工具"><a href="#（3）用工具" class="headerlink" title="（3）用工具"></a>（3）用工具</h2><p>web7：抓包，不断发送请求，就能看到了。</p>
-<p>web10：抓包，发送后直接查看响应头有flag（真·头等舱）</p>
-<p>web11：抓包没东西，直接看题解说用御剑后台扫描，扫出一个shell.php</p>
-<p>直接打开发现是需要密码，用bp抓包爆破。密码是hack（不晓得为什么我爆不出来，今后再尝试）</p>
-<p>web12：看源码找到一串bas64，解码得test123觉得就是密码，根据题目猜用户名是admin，但是这一步完了登不上去，ip禁止访问。然后看题解得知要用bp伪造ip !</p>
-<p>XFF（X-Forwarded-For）改一下,一弄就看见flag了。</p>
-<p><img src="/2021/01/25/bugku%E5%88%B7%E9%A2%98%E4%BD%93%E4%BC%9A/image-20210125215318443.png" alt="image-20210125215318443"></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://fallsilkworms.github.io/2021/01/05/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%8D%9A%E5%AE%A2%E4%BD%93%E9%AA%8C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="YX">
-      <meta itemprop="description" content="等一场秋风再起，花开如绎">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="fallsilkworm's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/01/05/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%8D%9A%E5%AE%A2%E4%BD%93%E9%AA%8C/" class="post-title-link" itemprop="url">我的第一次博客体验</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-01-05 05:29:24" itemprop="dateCreated datePublished" datetime="2021-01-05T05:29:24+08:00">2021-01-05</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-01-10 15:38:26" itemprop="dateModified" datetime="2021-01-10T15:38:26+08:00">2021-01-10</time>
-      </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="具体过程"><a href="#具体过程" class="headerlink" title="具体过程"></a>具体过程</h1><h3 id="参考文献：https-segmentfault-com-a-1190000016712646"><a href="#参考文献：https-segmentfault-com-a-1190000016712646" class="headerlink" title="参考文献：https://segmentfault.com/a/1190000016712646"></a>参考文献：<a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000016712646">https://segmentfault.com/a/1190000016712646</a></h3><p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000017986794">https://segmentfault.com/a/1190000017986794</a></p>
-<p>钉钉群b站视频</p>
-<h2 id="1-准备"><a href="#1-准备" class="headerlink" title="1 准备"></a>1 准备</h2><p>安装环境</p>
-<p>注册GitHub账号，安装node，git。</p>
-<h2 id="2-搭建仓库"><a href="#2-搭建仓库" class="headerlink" title="2 搭建仓库"></a>2 搭建仓库</h2><p>GitHub里找到新建库 库名为<code>username.github.io</code></p>
-<p>可以点进确定的网址测试看看自己的网站是否成功创建 。</p>
-<h2 id="3-配置SSH-key"><a href="#3-配置SSH-key" class="headerlink" title="3 配置SSH key"></a>3 配置SSH key</h2><p>使用ssh key来解决本地和服务器的连接问题</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cd ~&#x2F;. ssh #检查本机已存在的ssh密钥</span><br><span class="line">ssh-keygen -t rsa -C &quot;邮件地址&quot;</span><br></pre></td></tr></table></figure>
-<p>然后连续3次回车，最终会生成一个文件在用户目录下，打开用户目录，找到<code>.ssh\id_rsa.pub</code>文件，记事本打开并复制里面的内容，打开你的github主页，进入个人设置 -&gt; SSH and GPG keys -&gt; New SSH key：</p>
-<p>将刚复制的内容粘贴到key那里。</p>
-<h3 id="3-1-测试"><a href="#3-1-测试" class="headerlink" title="3.1 测试"></a>3.1 测试</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh -T git@github.com # 注意邮箱地址不用改</span><br></pre></td></tr></table></figure>
-<p>如果提示<code>Are you sure you want to continue connecting (yes/no)?</code>，输入yes，然后会看到：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hi C0ldSt0ne! You&#39;ve successfully authenticated, but GitHub does not provide shell access.</span><br></pre></td></tr></table></figure>
-<p>看到这个信息说明SSH已配置成功！</p>
-<h2 id="4-使用hexo写blog"><a href="#4-使用hexo写blog" class="headerlink" title="4 使用hexo写blog"></a>4 使用hexo写blog</h2><p>使用git bash来执行相关hexo命令。</p>
-<h3 id="4-1-安装"><a href="#4-1-安装" class="headerlink" title="4.1 安装"></a>4.1 安装</h3><p>在命令行直接安装，输入代码即可。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g hexo</span><br></pre></td></tr></table></figure>
-<p>创建博客根目录，我的是<code>C:\users\godti\myBlog</code></p>
-<p>（错了的话随时干掉这个根目录重创就行了）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cd &#x2F;c&#x2F;users&#x2F;godti&#x2F;myBlog&#x2F;</span><br><span class="line">$ hexo init</span><br></pre></td></tr></table></figure>
-<p>hexo会自动下载一些文件到这个目录</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo g # 生成</span><br><span class="line">$ hexo s # 启动服务</span><br></pre></td></tr></table></figure>
-<p>执行以上命令之后，hexo就会在public文件夹生成相关文件</p>
-<p><code>hexo s</code>是开启本地预览服务，打开浏览器访问 <a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000</a> 即可看到内容</p>
-<h3 id="4-2-配置-config-yml"><a href="#4-2-配置-config-yml" class="headerlink" title="4.2 配置_config.yml"></a>4.2 配置_config.yml</h3><p>先安装一个插件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
-<p>配置<code>_config.yml</code>中有关deploy的部分：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">type: git</span><br></pre></td></tr></table></figure>
-<p><code>repo:</code> 就是自己GitHub仓库的网址，防止打错直接复制。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">branch: master</span><br></pre></td></tr></table></figure>
-<p>(冒号后面都要有空格否则失败)</p>
-<h2 id="4-3-写博客"><a href="#4-3-写博客" class="headerlink" title="4.3 写博客"></a>4.3 写博客</h2><p>定位到hexo根目录 执行命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd myBlog</span><br><span class="line">hexo new &#39;标题&#39;</span><br></pre></td></tr></table></figure>
-<p>hexo会帮我们在<code>_posts</code>下生成相关md文件</p>
-<p>我们只需要打开这个文件就可以开始写博客了</p>
-<p>可以用typora ，很香。</p>
-<p>写好之后 <code>hexo g</code>生成博客。</p>
-<h2 id="4-4-上传"><a href="#4-4-上传" class="headerlink" title="4.4 上传"></a>4.4 上传</h2><p><code>hexo d</code>直接搞定上传</p>
-<p>查看就直接登录自己的GitHub仓库的网址就可以直接查看到自己的博客，不需要在<code>hexo s</code>打开localhost：4000访问。</p>
-<h1 id="感想"><a href="#感想" class="headerlink" title="感想"></a>感想</h1><p>emmm第一次感觉写博客如此复杂。参照了b站视频以及文本教程安装了hexo及其环境，就是需要安装node和git，然后才能完好地安装hexo。随后就是可以把它推到GitHub上了，以后直接访问GitHub就可以查看自己的文章了。总的来说，一切操作跟视频和文本教程走很轻松就完成，今后还要熟练地查文章和写自己的博客。</p>
-<h3 id><a href="#" class="headerlink" title></a></h3>
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
 
 
 
