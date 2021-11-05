@@ -23,30 +23,86 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"fallsilkworms.github.io","root":"/","images":"/images","scheme":"Muse","version":"8.2.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
   </script>
-<meta name="description" content="等一场秋风再起，花开如绎">
-<meta property="og:type" content="website">
-<meta property="og:title" content="fallsilkworm&#39;s Blog">
-<meta property="og:url" content="http://fallsilkworms.github.io/index.html">
+<meta name="description" content="攻防世界Re新手区open-source一段C的代码，一行行看，利用逆向思维反着来就行 123456789101112131415161718192021222324252627#include &lt;stdio.h&gt;#include &lt;string.h&gt;int main(int argc, char *argv[]) &amp;#123;    if (argc !&#x3D; 4) &amp;#12">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Re学习记录">
+<meta property="og:url" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/index.html">
 <meta property="og:site_name" content="fallsilkworm&#39;s Blog">
-<meta property="og:description" content="等一场秋风再起，花开如绎">
+<meta property="og:description" content="攻防世界Re新手区open-source一段C的代码，一行行看，利用逆向思维反着来就行 123456789101112131415161718192021222324252627#include &lt;stdio.h&gt;#include &lt;string.h&gt;int main(int argc, char *argv[]) &amp;#123;    if (argc !&#x3D; 4) &amp;#12">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20210723204529916-16360960105361.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20210717111904925-16360960105372.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20210717111847983-16360960105373.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20210717131544368-16360960105374.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20210717131604221-16360960105376.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20210717131653612-16360960105375.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20210717131735829.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20210717133351831.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20210717134157670.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20210717134226130.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20210717134433247.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20210717135043548.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20210717135954434.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20210717140107815.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20210717140929475.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20210717143821052.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20210717153702029.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20210718192554946.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20210717155525760.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20210717160318691.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20210717160100419.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20210717161812007.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20210717174017012.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20210717174057614.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20210717174226983.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20210717174301145.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20210717174353300.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20210717174414940.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20210717181731840.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20210717182011419.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20210717183900450.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20210717202211618.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20210718201249537.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20210718201405267.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20210718201459667.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20210718201649763.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20210718202224765.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20210718202514589.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20210718202635361.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20210718203254689.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20210718203545263.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20210718203706001.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20210718204242092.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20210718204312647.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/3.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/4.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/5.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/6.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/7.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/8.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/9.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/10.png">
+<meta property="article:published_time" content="2021-11-05T07:00:32.000Z">
+<meta property="article:modified_time" content="2021-11-05T07:06:55.867Z">
 <meta property="article:author" content="YX">
+<meta property="article:tag" content="笔记">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/image-20210723204529916-16360960105361.png">
 
 
-<link rel="canonical" href="http://fallsilkworms.github.io/">
+<link rel="canonical" href="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/">
 
 
 <script class="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
-<title>fallsilkworm's Blog</title>
+<title>Re学习记录 | fallsilkworm's Blog</title>
   
 
 
@@ -145,7 +201,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -158,6 +214,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CRe%E6%96%B0%E6%89%8B%E5%8C%BA"><span class="nav-number">1.</span> <span class="nav-text">攻防世界Re新手区</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#open-source"><span class="nav-number">1.1.</span> <span class="nav-text">open-source</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#game"><span class="nav-number">1.2.</span> <span class="nav-text">game</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hello-CTF"><span class="nav-number">1.3.</span> <span class="nav-text">Hello,CTF</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#simple-unpack"><span class="nav-number">1.4.</span> <span class="nav-text">simple-unpack</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#logmein"><span class="nav-number">1.5.</span> <span class="nav-text">logmein</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#no-strings-attached"><span class="nav-number">1.6.</span> <span class="nav-text">no-strings-attached</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getit"><span class="nav-number">1.7.</span> <span class="nav-text">getit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#python-trade"><span class="nav-number">1.8.</span> <span class="nav-text">python-trade</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#csaw2013"><span class="nav-number">1.9.</span> <span class="nav-text">csaw2013</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#maze"><span class="nav-number">1.10.</span> <span class="nav-text">maze</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -215,16 +272,17 @@
 </noscript>
 
 
-    <div class="main-inner index posts-expand">
+    <div class="main-inner post posts-expand">
 
-    
+
+  
 
 
 <div class="post-block">
   
   
 
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://fallsilkworms.github.io/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -237,9 +295,9 @@
       <meta itemprop="name" content="fallsilkworm's Blog">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" class="post-title-link" itemprop="url">Re学习记录</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          Re学习记录
+        </h1>
 
         <div class="post-meta-container">
           <div class="post-meta">
@@ -272,7 +330,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="攻防世界Re新手区"><a href="#攻防世界Re新手区" class="headerlink" title="攻防世界Re新手区"></a>攻防世界Re新手区</h2><h3 id="open-source"><a href="#open-source" class="headerlink" title="open-source"></a>open-source</h3><p>一段C的代码，一行行看，利用逆向思维反着来就行</p>
+        <h2 id="攻防世界Re新手区"><a href="#攻防世界Re新手区" class="headerlink" title="攻防世界Re新手区"></a>攻防世界Re新手区</h2><h3 id="open-source"><a href="#open-source" class="headerlink" title="open-source"></a>open-source</h3><p>一段C的代码，一行行看，利用逆向思维反着来就行</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (argc != <span class="number">4</span>) &#123;</span><br><span class="line">    	<span class="built_in">printf</span>(<span class="string">&quot;what?\n&quot;</span>);</span><br><span class="line">    	<span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> first = atoi(argv[<span class="number">1</span>]);</span><br><span class="line">    <span class="keyword">if</span> (first != <span class="number">0xcafe</span>) &#123;<span class="comment">//得出first=0xcafe转换成10进值为51966</span></span><br><span class="line">    	<span class="built_in">printf</span>(<span class="string">&quot;you are wrong, sorry.\n&quot;</span>);</span><br><span class="line">    	<span class="built_in">exit</span>(<span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> second = atoi(argv[<span class="number">2</span>]);</span><br><span class="line">    <span class="keyword">if</span> (second % <span class="number">5</span> == <span class="number">3</span> || second % <span class="number">17</span> != <span class="number">8</span>) &#123;<span class="comment">//second=25</span></span><br><span class="line">    	<span class="built_in">printf</span>(<span class="string">&quot;ha, you won&#x27;t get it!\n&quot;</span>);</span><br><span class="line">    	<span class="built_in">exit</span>(<span class="number">3</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">strcmp</span>(<span class="string">&quot;h4cky0u&quot;</span>, argv[<span class="number">3</span>])) &#123;<span class="comment">//argv[3]=’h4cky0u’</span></span><br><span class="line">    	<span class="built_in">printf</span>(<span class="string">&quot;so close, dude!\n&quot;</span>);</span><br><span class="line">    	<span class="built_in">exit</span>(<span class="number">4</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Brr wrrr grr\n&quot;</span>);</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> hash = first * <span class="number">31337</span> + (second % <span class="number">17</span>) * <span class="number">11</span> + <span class="built_in">strlen</span>(argv[<span class="number">3</span>]) - <span class="number">1615810207</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Get your key: &quot;</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%x\n&quot;</span>, hash);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>然后直接写出脚本</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> first = <span class="number">51966</span>;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> second=<span class="number">25</span>;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> hash = first * <span class="number">31337</span> + (second % <span class="number">17</span>) * <span class="number">11</span> + <span class="built_in">strlen</span>(<span class="string">&quot;h4cky0u&quot;</span>) - <span class="number">1615810207</span>;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;Get your key: &quot;</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%x\n&quot;</span>, hash);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -411,7 +469,6 @@
 <p><img src="/2021/11/05/Re%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/10.png" alt="img"></p>
 <p>走过迷宫，获得flag：nctf{o0oo00O000oooo..OO}</p>
 
-      
     </div>
 
     
@@ -419,432 +476,25 @@
     
 
     <footer class="post-footer">
-        <div class="post-eof"></div>
-      
+          <div class="post-tags">
+              <a href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag"># 笔记</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/05/21/dvwa%E5%88%9D%E4%BD%93%E9%AA%8C/" rel="prev" title="dvwa初体验">
+                  <i class="fa fa-chevron-left"></i> dvwa初体验
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
     </footer>
   </article>
 </div>
 
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://fallsilkworms.github.io/2021/05/21/dvwa%E5%88%9D%E4%BD%93%E9%AA%8C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="YX">
-      <meta itemprop="description" content="等一场秋风再起，花开如绎">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="fallsilkworm's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/05/21/dvwa%E5%88%9D%E4%BD%93%E9%AA%8C/" class="post-title-link" itemprop="url">dvwa初体验</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-05-21 19:45:09" itemprop="dateCreated datePublished" datetime="2021-05-21T19:45:09+08:00">2021-05-21</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-11-05 14:37:11" itemprop="dateModified" datetime="2021-11-05T14:37:11+08:00">2021-11-05</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Web/" itemprop="url" rel="index"><span itemprop="name">Web</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>（主要只是对Low等级而言）</p>
-<h1 id="Burp-Force"><a href="#Burp-Force" class="headerlink" title="Burp Force"></a>Burp Force</h1><p>解析：暴力破解用户名和密码</p>
-<h2 id="方法1：bp爆破"><a href="#方法1：bp爆破" class="headerlink" title="方法1：bp爆破"></a>方法1：bp爆破</h2><p>最常规常见的方法，主要是运用bp抓包后发送到爆破模块用字典进行爆破即可</p>
-<p>（找了个看起来很全的字典<a target="_blank" rel="noopener" href="https://github.com/arthur0081/Blasting_dictionary">GitHub - arthur0081/Blasting_dictionary: 爆破字典</a>）</p>
-<p>这是破解方法所对应的一些适用条件：<img src="/2021/05/21/dvwa%E5%88%9D%E4%BD%93%E9%AA%8C/QQ%E6%88%AA%E5%9B%BE20210521201711.png" alt="QQ截图20210521201711"></p>
-<p>low就很轻松爆出，新手狂喜</p>
-<p><img src="/2021/05/21/dvwa%E5%88%9D%E4%BD%93%E9%AA%8C/QQ%E6%88%AA%E5%9B%BE20210521204045.png" alt="QQ截图20210521204045"></p>
-<h2 id="方法2：sql注入绕过"><a href="#方法2：sql注入绕过" class="headerlink" title="方法2：sql注入绕过"></a>方法2：sql注入绕过</h2><p>之后再看到其他博客才知道能这样爆，因为是自己了解sql注入太少所以不清楚能这样玩，毕竟sql注入我感觉挺难的。。应该是用在很多复杂的网站挖漏洞这种，而且sql注入漏洞应该是大赛中考虑最多的</p>
-<p>这里再了解下定义吧：</p>
-<p>  SQL注入即是指<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/web%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/2498090">web应用程序</a>对用户输入数据的合法性<strong>没有判断或过滤不严</strong>，攻击者可以在web应用程序中**事先定义好的查询语句的结尾上添加额外的<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/SQL%E8%AF%AD%E5%8F%A5/5714895">SQL语句</a>**，在管理员不知情的情况下实现非法操作，以此来实现欺骗<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9C%8D%E5%8A%A1%E5%99%A8/613818">数据库服务器</a>执行非授权的任意查询，从而进一步得到相应的数据信息。</p>
-<p>那首先就可以查看源码康康有没有过滤掉用户名和密码（因为没怎么学php语法然后sql语句也没记住太多所以确实看不太懂就是了）</p>
-<p><code>&lt;?php</code></p>
-<p><code>if( isset( $_GET[ &#39;Login&#39; ] ) ) &#123;   // 获取用户名和密码   $user = $_GET[ &#39;username&#39; ];</code></p>
-<p>  <code>// Get password</code><br>  <code>$pass = $_GET[ &#39;password&#39; ];</code><br>  <code>$pass = md5( $pass );</code></p>
-<p>  <code>// 查询验证用户名和密码</code><br>  <code>$query = &quot;SELECT * FROM users WHERE user = &#39;$user&#39; AND password = &#39;$pass&#39;;&quot;;</code><br>  <code>$result = mysqli_query($GLOBALS[&quot;___mysqli_ston&quot;], $query ) or die( &#39;&lt;pre&gt;&#39; . ((is_object($GLOBALS[&quot;___mysqli_ston&quot;])) ? mysqli_error($GLOBALS[&quot;___mysqli_ston&quot;]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)) . &#39;&lt;/pre&gt;&#39; );</code></p>
-<p>  <code>if( $result &amp;&amp; mysqli_num_rows( $result ) == 1 ) &#123;</code><br>    <code>// 输出头像和用户名</code><br>    <code>$row  = mysqli_fetch_assoc( $result );</code><br>    <code>$avatar = $row[&quot;avatar&quot;];</code></p>
-<p>​    <code>//登陆成功</code><br><code>​    echo &quot;&lt;p&gt;Welcome to the password protected area &#123;$user&#125;&lt;/p&gt;&quot;;</code><br><code>​    echo &quot;&lt;img src=\&quot;&#123;$avatar&#125;\&quot; /&gt;&quot;;</code><br>  <code>&#125;</code><br>  <code>else &#123;</code><br><code>​    // 登录失败</code><br><code>​    echo &quot;&lt;pre&gt;&lt;br /&gt;Username and/or password incorrect.&lt;/pre&gt;&quot;;</code><br>  <code>&#125;</code></p>
-<p>  <code>((is_null($___mysqli_res = mysqli_close($GLOBALS[&quot;___mysqli_ston&quot;]))) ? false : $___mysqli_res);</code><br><code>&#125;</code></p>
-<p><code>?&gt;</code></p>
-<p>因为用户名和密码都没有进行过滤所以不安全，然后直接sql语句进行测试</p>
-<p><code>admin’ or ‘1’=’1</code>，这个在数据库中对应<code>select * from *where username=’admin’ or ‘1’=’1’</code>语句，or语法是一真则真，因为’1’=’1’是恒成立的，where语句后面也就都为真，所以我们能够直接绕过验证，成功登录。</p>
-<h3 id="顺便复习下GET和POST方法"><a href="#顺便复习下GET和POST方法" class="headerlink" title="顺便复习下GET和POST方法"></a>顺便复习下GET和POST方法</h3><h4 id="GET-方法"><a href="#GET-方法" class="headerlink" title="GET 方法"></a>GET 方法</h4><p><em>GET 用于从指定资源请求数据。</em></p>
-<p><em>GET 是最常见的 HTTP 方法之一。</em></p>
-<p>查询字符串（名称/值对）是在 GET 请求的 URL 中发送的</p>
-<h4 id="POST-方法"><a href="#POST-方法" class="headerlink" title="POST 方法"></a>POST 方法</h4><p><em>POST 用于将数据发送到服务器来创建/更新资源。</em></p>
-<p>通过 POST 发送到服务器的数据存储在 HTTP 请求的请求主体中</p>
-<p>抓包后可以知道网站用的是GET或者是POST方法。</p>
-<p>参考：<a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/others-articles/214882.html">菜鸡的渗透学习之路：DVWA暴力破解 - FreeBuf网络安全行业门户</a></p>
-<h1 id="Command-Injection"><a href="#Command-Injection" class="headerlink" title="Command Injection"></a>Command Injection</h1><p>解析：命令行注入，通过输入恶意代码进行远程代码操控，即ctfhub里RCE模块（远程命令/代码执行漏洞）的题目。</p>
-<p>首先了解一下ping：<strong>Ping是Windows、Unix和Linux系统下的一个命令。ping也属于一个通信协议，是TCP/IP协议的一部分。利用“ping”命令可以检查网络是否连通，可以很好地帮助我们分析和判定网络故障。应用格式：ping空格IP地址</strong></p>
-<p>这一块的内容还挺多的，也挺新：</p>
-<p>命令的链接符号<br>1.每个命令之间用;隔开<br>说明：各命令的执行给果，不会影响其它命令的执行。换句话说，各个命令都会执行，但不保证每个命令都执行成功。<br>2.每个命令之间用&amp;&amp;隔开<br>说明：若前面的命令执行成功，才会去执行后面的命令。这样可以保证所有的命令执行完毕后，执行过程都是成功的。<br>3.每个命令之间用||隔开<br>说明：||是或的意思，只有前面的命令执行失败后才去执行下一条命令，直到执行成功一条命令为止。</p>
-<ol start="4">
-<li><p>| 是管道符号。管道符号改变标准输入的源或者是标准输出的目的地。</p>
-</li>
-<li><p>&amp; 是后台任务符号。 后台任务符号使shell在后台执行该任务，这样用户就可以立即得到一个提示符并继续其他工作。</p>
-<p>基本的<strong>漏洞利用</strong>：window和linux系统都可以用&amp;&amp;来执行多条命令</p>
-<p>所以这个题就直接按照题解，直接得到信息</p>
-<p><img src="/2021/05/21/dvwa%E5%88%9D%E4%BD%93%E9%AA%8C/image-20210521211237230.png" alt="image-20210521211237230"></p>
-</li>
-</ol>
-<h1 id="File-Upload"><a href="#File-Upload" class="headerlink" title="File Upload"></a>File Upload</h1><p>解析：文件上传漏洞，是web安全中经常用到的一种漏洞形式。是对数据与代码分离原则的一种攻击。上传漏洞顾名思义，就是攻击者上传了一个可执行文件如木马，病毒，恶意脚本，WebShell等到服务器执行，并最终获得网站控制权限的高危漏洞。主要是用一句话木马通过各种绕过上传到服务器然后用蚁剑连接即可拿到权限。</p>
-<p>low等级很简单并无任何白名单黑名单</p>
-<p><img src="/2021/05/21/dvwa%E5%88%9D%E4%BD%93%E9%AA%8C/QQ%E6%88%AA%E5%9B%BE20210523200955.png" alt="QQ截图20210523200955"></p>
-<p>直接传一句话木马用蚁剑连就行了</p>
-<p><img src="/2021/05/21/dvwa%E5%88%9D%E4%BD%93%E9%AA%8C/QQ%E6%88%AA%E5%9B%BE20210523201200.png" alt="QQ截图20210523201200"></p>
-<h1 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h1><p>解析：跨域脚本攻击，向被攻击网站注入恶意脚本，恶意脚本获取到数据发送到另外一个域的网站上。XSS攻击需要具备两个条件：需要向web页面注入恶意代码；这些恶意代码能够被浏览器成功的执行。主要作用是拿到cookie</p>
-<h2 id="XSS（Reflect）"><a href="#XSS（Reflect）" class="headerlink" title="XSS（Reflect）"></a>XSS（Reflect）</h2><p>反射型xss：基本原理就是通过给别人发送带有恶意脚本代码参数的URL，当URL地址被打开时，特定的代码参数会被HTML解析和执行</p>
-<p>虽然也不会，不过也得跟着看看源码：<img src="/2021/05/21/dvwa%E5%88%9D%E4%BD%93%E9%AA%8C/QQ%E6%88%AA%E5%9B%BE20210523202059.png" alt="QQ截图20210523202059"></p>
-<p>只是判断了name是否为空，不为空就输出name。就存在xss漏洞</p>
-<p>直接上xss测试语句<img src="/2021/05/21/dvwa%E5%88%9D%E4%BD%93%E9%AA%8C/QQ%E6%88%AA%E5%9B%BE20210523201706.png" alt="QQ截图20210523201706"></p>
-<p>（很神奇）</p>
-<h2 id="XSS（Store）"><a href="#XSS（Store）" class="headerlink" title="XSS（Store）"></a>XSS（Store）</h2><p>又是新东西，先了解下定义：储存型xss，把恶意脚本存储到被攻击者的网站的数据库。其他人访问数据库中的恶意脚本代码后，浏览器执行恶意脚本，被攻击。存储式攻击不止一次攻击，并且被攻击的人不止一个，影响范围大。</p>
-<p>这个东西</p>
-<p>大概思路就是说，攻击者在评论处输入xss测试语句,点击提交后这段脚本存入到数据库就能执行</p>
-<p>然后又是跟着看源码的时候：</p>
-<?php
-if( isset( $_POST[ 'btnSign' ] ) ) {
-    // Get input
-    $message = trim( $_POST[ 'mtxMessage' ] );
-    $name    = trim( $_POST[ 'txtName' ] );
-    // Sanitize message input
-    $message = stripslashes( $message );
-    $message = ((isset($GLOBALS["___mysqli_ston"]) && is_object($GLOBALS["___mysqli_ston"])) ? mysqli_real_escape_string($GLOBALS["___mysqli_ston"],  $message ) : ((trigger_error("[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.", E_USER_ERROR)) ? "" : ""));
-    // Sanitize name input
-    $name = ((isset($GLOBALS["___mysqli_ston"]) && is_object($GLOBALS["___mysqli_ston"])) ? mysqli_real_escape_string($GLOBALS["___mysqli_ston"],  $name ) : ((trigger_error("[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.", E_USER_ERROR)) ? "" : ""));
-    // Update database
-    $query  = "INSERT INTO guestbook ( comment, name ) VALUES ( '$message', '$name' );";
-    $result = mysqli_query($GLOBALS["___mysqli_ston"],  $query ) or die( '<pre>' . ((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)) . '' );
-    //mysql_close();
-}
-?><p> </p>
-<p>没有过滤掉message和name，直接在message处打上测试语句就行</p>
-<p><img src="/2021/05/21/dvwa%E5%88%9D%E4%BD%93%E9%AA%8C/QQ%E6%88%AA%E5%9B%BE20210523202903.png" alt="QQ截图20210523202903"></p>
-<p><img src="/2021/05/21/dvwa%E5%88%9D%E4%BD%93%E9%AA%8C/QQ%E6%88%AA%E5%9B%BE20210523203304.png" alt="QQ截图20210523203304"></p>
-<p>（神奇）</p>
-<h2 id="XSS（DOM）"><a href="#XSS（DOM）" class="headerlink" title="XSS（DOM）"></a>XSS（DOM）</h2><p>又是不知道的东西啊！了解下先：</p>
-<p>DOM型XSS其实是一种特殊类型的反射型XSS，DOM是文档对象模型balbalbala那一堆东西我也不懂是啥，先不做过多的了解。。。</p>
-<p>直接看着做</p>
-<p>先看源码<?php# No protections, anything goes?>（好干净啥也没有？）</p>
-<p>然后default也没过滤于是直接在url构造xss就行了</p>
-<p><img src="/2021/05/21/dvwa%E5%88%9D%E4%BD%93%E9%AA%8C/QQ%E6%88%AA%E5%9B%BE20210523204739.png" alt="QQ截图20210523204739"></p>
-<p><img src="/2021/05/21/dvwa%E5%88%9D%E4%BD%93%E9%AA%8C/QQ%E6%88%AA%E5%9B%BE20210523204801.png" alt="QQ截图20210523204801"></p>
-<p>（有意思）</p>
-<h1 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a>SQL注入</h1><p>解析：sql普通注入可以根据报错提示，进行sql语句注入从而直接爆出我们想要的信息，比如数据库版本、数据库名、用户名、操作系统版本等，一般用手注和sqlmap自动注。</p>
-<h2 id="sqlmap自动注入（GET方法）"><a href="#sqlmap自动注入（GET方法）" class="headerlink" title="sqlmap自动注入（GET方法）"></a>sqlmap自动注入（GET方法）</h2><p>新手的我果然还是比较喜欢先尝试用工具嘻嘻</p>
-<p><img src="/2021/05/21/dvwa%E5%88%9D%E4%BD%93%E9%AA%8C/QQ%E6%88%AA%E5%9B%BE20210528193432.png" alt="QQ截图20210528193432"></p>
-<p>got a 302 redirect to，，不能直接用，需要带上cookie，去抓包拿cookie，然后那就把cookie带上进行输入对应的sqlmap命令就能看到东西了，就是这么霸道。</p>
-<p>基础命令如下：</p>
-<p>*<em>-p参数只对指定的参数进行注入，在上述命令中指定了对username参数进行注入</em><br><em>-p username</em><br><em>-v：显示详细的信息，有1-6级，默认为1</em><br><em>-f参数查看指纹信息</em><br><em>–technique 看情况选</em><br><em>B : 基于Boolean的盲注（Boolean based blind）</em><br><em>Q : 内联查询（Inline queries）</em><br><em>T : 基于时间的盲注（time based blind）</em><br><em>U : 基于联合查询（Union query based）</em><br><em>E : 基于错误（error based）</em><br><em>S : 栈查询（stack queries）</em><br><em>–technique 看情况选******</em></p>
-<p><u><strong><em>–dbs：查看目标数据库系统的所有库 -D</em></strong></u><br><u><strong><em>–tables     -T表名</em></strong></u><br><u><strong><em>–columns     -C字段名</em></strong></u><br><u>*<strong>–dump         内容**</strong></u></p>
-<p>先看所有库 </p>
-<p><code>python2 sqlmap.py -u &quot;http://127.0.0.1/DVWA/vulnerabilities/sqli/?id=1&amp;Submit=Submit#&quot; --cookie=&quot;security=low; PHPSESSID=m42j35b05uii73jgpe3am21he0&quot;  --dbs</code><img src="/2021/05/21/dvwa%E5%88%9D%E4%BD%93%E9%AA%8C/QQ%E6%88%AA%E5%9B%BE20210528194000.png" alt="QQ截图20210528194000"></p>
-<p>也可以看相应的表，这里查看了dvwa的表 </p>
-<p><code>python2 sqlmap.py -u &quot;http://127.0.0.1/DVWA/vulnerabilities/sqli/?id=1&amp;Submit=Submit#&quot; --cookie=&quot;security=low; PHPSESSID=m42j35b05uii73jgpe3am21he0&quot;  --dbs -D dvwa --tables</code></p>
-<p><img src="/2021/05/21/dvwa%E5%88%9D%E4%BD%93%E9%AA%8C/QQ%E6%88%AA%E5%9B%BE20210528194217.png" alt="QQ截图20210528194217"></p>
-<p>然后看users的字段和里面的内容</p>
-<p> <code>python2 sqlmap.py -u &quot;http://127.0.0.1/DVWA/vulnerabilities/sqli/?id=1&amp;Submit=Submit#&quot; --cookie=&quot;security=low; PHPSESSID=m42j35b05uii73jgpe3am21he0&quot;  --dbs -D dvwa --tables users --columns --dump</code></p>
-<p><img src="/2021/05/21/dvwa%E5%88%9D%E4%BD%93%E9%AA%8C/QQ%E6%88%AA%E5%9B%BE20210528194823.png" alt="QQ截图20210528194823"></p>
-<p>啥都能看到了！sql注入危害性可大。</p>
-<h2 id="手动注入"><a href="#手动注入" class="headerlink" title="手动注入"></a>手动注入</h2><p>比较适用于所有的情况</p>
-<p>还不熟悉sql语句，查看题解敲。</p>
-<p>先起手式测试注入点：（联合查询注入）   <strong>1’ union select user, password from users#</strong></p>
-<p><img src="/2021/05/21/dvwa%E5%88%9D%E4%BD%93%E9%AA%8C/QQ%E6%88%AA%E5%9B%BE20210528200222.png" alt="QQ截图20210528200222"></p>
-<p>然后闭合   <strong>1’ or ‘1’ =’1</strong> </p>
-<p><img src="/2021/05/21/dvwa%E5%88%9D%E4%BD%93%E9%AA%8C/QQ%E6%88%AA%E5%9B%BE20210528200405.png" alt="QQ截图20210528200405"></p>
-<p>low等级毫无任何过滤直接成功注入，拿到所有信息，结束。</p>
-<h1 id="SQL盲注"><a href="#SQL盲注" class="headerlink" title="SQL盲注"></a>SQL盲注</h1><p>解析：盲注就是在sql注入过程中，sql语句执行的选择后，选择的数据不能回显到前端页面。此时，我们需要利用一些方法进行判断或者尝试，这个过程称之为盲注。难度比普通注入大很多。</p>
-<p>类型大体分为布尔盲注，时间盲注，报错盲注</p>
-<p>详情参考<a target="_blank" rel="noopener" href="https://www.cnblogs.com/zane-s/articles/12371820.html#">SQL注入之盲注简单总结 - Zane_S - 博客园 (cnblogs.com)</a></p>
-<h2 id="sqlmap注入"><a href="#sqlmap注入" class="headerlink" title="sqlmap注入"></a>sqlmap注入</h2><p>直接一套操作秒爆出表，sqlmap果真是相当厉害又方便  </p>
-<p><code>python2 sqlmap.py -u &quot;http://127.0.0.1/DVWA/vulnerabilities/sqli_blind/?id=1&amp;Submit=Submit#&quot; --cookie=&quot;security=low; PHPSESSID=m42j35b05uii73jgpe3am21he0&quot; --technique B  --dbs --batch</code> </p>
-<p><img src="/2021/05/21/dvwa%E5%88%9D%E4%BD%93%E9%AA%8C/QQ%E6%88%AA%E5%9B%BE20210528202422.png" alt="QQ截图20210528202422"></p>
-<p>这个爆的时候是一个表一个表的冒出来，符合盲注特点。</p>
-<p>要查东西也和普通注入的时候一样的命令就行</p>
-<h2 id="手动注入-1"><a href="#手动注入-1" class="headerlink" title="手动注入"></a>手动注入</h2><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/aedf919d08fb">DVWA-SQL Injection(Blind)(SQL盲注) - 简书 (jianshu.com)</a></p>
-<p>一套按照题解可以搞出来。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://fallsilkworms.github.io/2021/01/25/bugku%E5%88%B7%E9%A2%98%E4%BD%93%E4%BC%9A/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="YX">
-      <meta itemprop="description" content="等一场秋风再起，花开如绎">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="fallsilkworm's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/01/25/bugku%E5%88%B7%E9%A2%98%E4%BD%93%E4%BC%9A/" class="post-title-link" itemprop="url">bugku刷题体会</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-01-25 22:31:06" itemprop="dateCreated datePublished" datetime="2021-01-25T22:31:06+08:00">2021-01-25</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-11-05 14:37:21" itemprop="dateModified" datetime="2021-11-05T14:37:21+08:00">2021-11-05</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Web/" itemprop="url" rel="index"><span itemprop="name">Web</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="web"><a href="#web" class="headerlink" title="web"></a>web</h1><p>参考来源：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/5fd1b624fd7a">https://www.jianshu.com/p/5fd1b624fd7a</a></p>
-<p>基本操作：看源码，发送http请求，bp抓包，bp爆破，bp伪造cookie，目前遇到的就是这些。重要的是读懂代码和题目意思。一般打开一道题基本都离不开看源码抓包改包，然后才就用各种web工具。所以f12和bp是打开的基本姿势。</p>
-<h2 id="（1）看源码"><a href="#（1）看源码" class="headerlink" title="（1）看源码"></a>（1）看源码</h2><p><u><strong>考点：所学知识的集合。</strong></u></p>
-<p>   最简单的类型，直接查看网页源码得知很多信息，可以在直接修改网页东西（web2）新手基本只能自己做的就是这种题型。基本上都包含其他的知识点一起出题，能直接得到flag的极少。需要具备的能力是看懂各种加密后的代码。</p>
-<p>例子：</p>
-<p>web1：直接查看。</p>
-<p>web2：查看后修改限制值。</p>
-<p>web6：查看后Unicode解码。</p>
-<p>web13：查看后发现下面断开的代码，合上后用url解码</p>
-<h2 id="（2）发送http请求"><a href="#（2）发送http请求" class="headerlink" title="（2）发送http请求"></a>（2）发送http请求</h2><p><u><strong>考点：get/post传参，php函数，php弱比较，文件包含漏洞等</strong></u></p>
-<p>  是相对很难的题型，需要具备的能力是基本认识url，html，php，JavaScript，python等多种语言，读懂代码后才能做题。现在是刚接触，未了解到这些语言各种的应用，做起来很吃力很懵逼。而且有非常多的题目都是这种题型。</p>
-<p>例子：</p>
-<p>web3：get传参。读代码后知道，**<u>?what=flag</u>**</p>
-<p>web4：post传参。使用hackbar直接传参。</p>
-<p>web5：php弱比较。读代码后，由“if($num==1)”知道了这是php弱比较，逻辑矛盾即可。所以用%00截断， <strong><u>?num=1%00</u></strong>     其实后面跟一个不是数字的也得。</p>
-<p>web8：文件包含。读代码。发现var_dump()，file()函数，还有include，属于php包含。</p>
-<p><img src="/2021/01/25/bugku%E5%88%B7%E9%A2%98%E4%BD%93%E4%BC%9A/image-20210125212546874.png" alt="image-20210125212546874"></p>
-<p><img src="/2021/01/25/bugku%E5%88%B7%E9%A2%98%E4%BD%93%E4%BC%9A/image-20210125212916480.png" alt="image-20210125212916480"></p>
-<p><img src="/2021/01/25/bugku%E5%88%B7%E9%A2%98%E4%BD%93%E4%BC%9A/image-20210125211944681.png" alt="image-20210125211944681"></p>
-<p>由于不会直接看题解</p>
-<p><img src="/2021/01/25/bugku%E5%88%B7%E9%A2%98%E4%BD%93%E4%BC%9A/image-20210120010319644.png" alt="image-20210120010319644"></p>
-<p>request直接可以用get传参 <strong>?hello=file(‘flag.php’)</strong> .</p>
-<p>web9：刚刚来以为类似web8，所以我用web8的方法直接传参失败了，其实也是新的东西。查看题解。</p>
-<p><img src="/2021/01/25/bugku%E5%88%B7%E9%A2%98%E4%BD%93%E4%BC%9A/image-20210125213400738.png" alt="image-20210125213400738"></p>
-<p>思路就是，把单个变量变成全局变量调用就看见了。</p>
-<p><img src="/2021/01/25/bugku%E5%88%B7%E9%A2%98%E4%BD%93%E4%BC%9A/image-20210125213832278.png" alt="image-20210125213832278"></p>
-<p>web14：看源码抓包啥也没有，直接看题解说用到php://filter读取文件后直接构造payload。**?file=php://filter/read=convert.base64-encode/resource=index.php**</p>
-<p><img src="/2021/01/25/bugku%E5%88%B7%E9%A2%98%E4%BD%93%E4%BC%9A/image-20210125215900875.png" alt="image-20210125215900875"></p>
-<p><img src="/2021/01/25/bugku%E5%88%B7%E9%A2%98%E4%BD%93%E4%BC%9A/image-20210125220019199.png" alt="image-20210125220019199"></p>
-<h2 id="（3）用工具"><a href="#（3）用工具" class="headerlink" title="（3）用工具"></a>（3）用工具</h2><p>web7：抓包，不断发送请求，就能看到了。</p>
-<p>web10：抓包，发送后直接查看响应头有flag（真·头等舱）</p>
-<p>web11：抓包没东西，直接看题解说用御剑后台扫描，扫出一个shell.php</p>
-<p>直接打开发现是需要密码，用bp抓包爆破。密码是hack（不晓得为什么我爆不出来，今后再尝试）</p>
-<p>web12：看源码找到一串bas64，解码得test123觉得就是密码，根据题目猜用户名是admin，但是这一步完了登不上去，ip禁止访问。然后看题解得知要用bp伪造ip !</p>
-<p>XFF（X-Forwarded-For）改一下,一弄就看见flag了。</p>
-<p><img src="/2021/01/25/bugku%E5%88%B7%E9%A2%98%E4%BD%93%E4%BC%9A/image-20210125215318443.png" alt="image-20210125215318443"></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://fallsilkworms.github.io/2021/01/05/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%8D%9A%E5%AE%A2%E4%BD%93%E9%AA%8C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="YX">
-      <meta itemprop="description" content="等一场秋风再起，花开如绎">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="fallsilkworm's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/01/05/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%8D%9A%E5%AE%A2%E4%BD%93%E9%AA%8C/" class="post-title-link" itemprop="url">我的第一次博客体验</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-01-05 05:29:24" itemprop="dateCreated datePublished" datetime="2021-01-05T05:29:24+08:00">2021-01-05</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-01-10 15:38:26" itemprop="dateModified" datetime="2021-01-10T15:38:26+08:00">2021-01-10</time>
-      </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="具体过程"><a href="#具体过程" class="headerlink" title="具体过程"></a>具体过程</h1><h3 id="参考文献：https-segmentfault-com-a-1190000016712646"><a href="#参考文献：https-segmentfault-com-a-1190000016712646" class="headerlink" title="参考文献：https://segmentfault.com/a/1190000016712646"></a>参考文献：<a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000016712646">https://segmentfault.com/a/1190000016712646</a></h3><p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000017986794">https://segmentfault.com/a/1190000017986794</a></p>
-<p>钉钉群b站视频</p>
-<h2 id="1-准备"><a href="#1-准备" class="headerlink" title="1 准备"></a>1 准备</h2><p>安装环境</p>
-<p>注册GitHub账号，安装node，git。</p>
-<h2 id="2-搭建仓库"><a href="#2-搭建仓库" class="headerlink" title="2 搭建仓库"></a>2 搭建仓库</h2><p>GitHub里找到新建库 库名为<code>username.github.io</code></p>
-<p>可以点进确定的网址测试看看自己的网站是否成功创建 。</p>
-<h2 id="3-配置SSH-key"><a href="#3-配置SSH-key" class="headerlink" title="3 配置SSH key"></a>3 配置SSH key</h2><p>使用ssh key来解决本地和服务器的连接问题</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cd ~&#x2F;. ssh #检查本机已存在的ssh密钥</span><br><span class="line">ssh-keygen -t rsa -C &quot;邮件地址&quot;</span><br></pre></td></tr></table></figure>
-<p>然后连续3次回车，最终会生成一个文件在用户目录下，打开用户目录，找到<code>.ssh\id_rsa.pub</code>文件，记事本打开并复制里面的内容，打开你的github主页，进入个人设置 -&gt; SSH and GPG keys -&gt; New SSH key：</p>
-<p>将刚复制的内容粘贴到key那里。</p>
-<h3 id="3-1-测试"><a href="#3-1-测试" class="headerlink" title="3.1 测试"></a>3.1 测试</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh -T git@github.com # 注意邮箱地址不用改</span><br></pre></td></tr></table></figure>
-<p>如果提示<code>Are you sure you want to continue connecting (yes/no)?</code>，输入yes，然后会看到：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hi C0ldSt0ne! You&#39;ve successfully authenticated, but GitHub does not provide shell access.</span><br></pre></td></tr></table></figure>
-<p>看到这个信息说明SSH已配置成功！</p>
-<h2 id="4-使用hexo写blog"><a href="#4-使用hexo写blog" class="headerlink" title="4 使用hexo写blog"></a>4 使用hexo写blog</h2><p>使用git bash来执行相关hexo命令。</p>
-<h3 id="4-1-安装"><a href="#4-1-安装" class="headerlink" title="4.1 安装"></a>4.1 安装</h3><p>在命令行直接安装，输入代码即可。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g hexo</span><br></pre></td></tr></table></figure>
-<p>创建博客根目录，我的是<code>C:\users\godti\myBlog</code></p>
-<p>（错了的话随时干掉这个根目录重创就行了）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cd &#x2F;c&#x2F;users&#x2F;godti&#x2F;myBlog&#x2F;</span><br><span class="line">$ hexo init</span><br></pre></td></tr></table></figure>
-<p>hexo会自动下载一些文件到这个目录</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo g # 生成</span><br><span class="line">$ hexo s # 启动服务</span><br></pre></td></tr></table></figure>
-<p>执行以上命令之后，hexo就会在public文件夹生成相关文件</p>
-<p><code>hexo s</code>是开启本地预览服务，打开浏览器访问 <a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000</a> 即可看到内容</p>
-<h3 id="4-2-配置-config-yml"><a href="#4-2-配置-config-yml" class="headerlink" title="4.2 配置_config.yml"></a>4.2 配置_config.yml</h3><p>先安装一个插件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
-<p>配置<code>_config.yml</code>中有关deploy的部分：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">type: git</span><br></pre></td></tr></table></figure>
-<p><code>repo:</code> 就是自己GitHub仓库的网址，防止打错直接复制。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">branch: master</span><br></pre></td></tr></table></figure>
-<p>(冒号后面都要有空格否则失败)</p>
-<h2 id="4-3-写博客"><a href="#4-3-写博客" class="headerlink" title="4.3 写博客"></a>4.3 写博客</h2><p>定位到hexo根目录 执行命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd myBlog</span><br><span class="line">hexo new &#39;标题&#39;</span><br></pre></td></tr></table></figure>
-<p>hexo会帮我们在<code>_posts</code>下生成相关md文件</p>
-<p>我们只需要打开这个文件就可以开始写博客了</p>
-<p>可以用typora ，很香。</p>
-<p>写好之后 <code>hexo g</code>生成博客。</p>
-<h2 id="4-4-上传"><a href="#4-4-上传" class="headerlink" title="4.4 上传"></a>4.4 上传</h2><p><code>hexo d</code>直接搞定上传</p>
-<p>查看就直接登录自己的GitHub仓库的网址就可以直接查看到自己的博客，不需要在<code>hexo s</code>打开localhost：4000访问。</p>
-<h1 id="感想"><a href="#感想" class="headerlink" title="感想"></a>感想</h1><p>emmm第一次感觉写博客如此复杂。参照了b站视频以及文本教程安装了hexo及其环境，就是需要安装node和git，然后才能完好地安装hexo。随后就是可以把它推到GitHub上了，以后直接访问GitHub就可以查看自己的文章了。总的来说，一切操作跟视频和文本教程走很轻松就完成，今后还要熟练地查文章和写自己的博客。</p>
-<h3 id><a href="#" class="headerlink" title></a></h3>
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
 
 
 
