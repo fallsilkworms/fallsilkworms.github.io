@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/ac1.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"fallsilkworms.github.io","root":"/","images":"/images","scheme":"Muse","version":"8.2.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+  </script>
+<meta name="description" content="攻防世界Re进阶区Shuffle查，32位，直接拖IDA，看到定义了很多字符，尝试按个R  直截了当的flag dmd-50查后64位，拖IDA，跟上一题好像，也是定义一堆字符。按R  往上翻翻看见了md5，先拿去解密  好短啊感觉不太像。查看wp，得知它需要用md5加密后提交，但是要小写的  Guess-the-Number拿到jar包肯定看Java源码  直接除以5取整数可求得guess_nu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="攻防世界进阶Re">
+<meta property="og:url" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Re/index.html">
+<meta property="og:site_name" content="fallsilkworm&#39;s Blog">
+<meta property="og:description" content="攻防世界Re进阶区Shuffle查，32位，直接拖IDA，看到定义了很多字符，尝试按个R  直截了当的flag dmd-50查后64位，拖IDA，跟上一题好像，也是定义一堆字符。按R  往上翻翻看见了md5，先拿去解密  好短啊感觉不太像。查看wp，得知它需要用md5加密后提交，但是要小写的  Guess-the-Number拿到jar包肯定看Java源码  直接除以5取整数可求得guess_nu">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Re/image-20210721213826289.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Re/image-20210721215004064.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Re/image-20210721215101094.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Re/image-20210721215139018.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Re/image-20210721210928845.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Re/image-20210721211043876.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Re/image-20211102161336660-16360982468217.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Re/image-20211102165006801-16360982703248.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Re/image-20211102165206372-163609827032410.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Re/image-20211103170148890-16360982703249.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Re/image-20211103171351361-163609827032411.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Re/image-20211103173633113-163609827032412.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Re/image-20211103173751044-163609827032413.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Re/image-20211103180046239-163609827032414.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Re/image-20211103180214773-163609827032415.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Re/image-20211103180329803-163609827032416.png">
+<meta property="article:published_time" content="2021-11-05T07:38:48.000Z">
+<meta property="article:modified_time" content="2021-11-05T07:44:31.055Z">
+<meta property="article:author" content="YX">
+<meta property="article:tag" content="Re刷题">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Re/image-20210721213826289.png">
+
+
+<link rel="canonical" href="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Re/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<title>攻防世界进阶Re | fallsilkworm's Blog</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">fallsilkworm's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">一只千年秋蚕</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CRe%E8%BF%9B%E9%98%B6%E5%8C%BA"><span class="nav-number">1.</span> <span class="nav-text">攻防世界Re进阶区</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Shuffle"><span class="nav-number">1.1.</span> <span class="nav-text">Shuffle</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dmd-50"><span class="nav-number">1.2.</span> <span class="nav-text">dmd-50</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Guess-the-Number"><span class="nav-number">1.3.</span> <span class="nav-text">Guess-the-Number</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#answer-to-everything"><span class="nav-number">1.4.</span> <span class="nav-text">answer_to_everything</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#666"><span class="nav-number">1.5.</span> <span class="nav-text">666</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#srm-50"><span class="nav-number">1.6.</span> <span class="nav-text">srm-50</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mysterious"><span class="nav-number">1.7.</span> <span class="nav-text">Mysterious</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#re1-100"><span class="nav-number">1.8.</span> <span class="nav-text">re1-100</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#secret-galaxy-300"><span class="nav-number">1.9.</span> <span class="nav-text">secret-galaxy-300</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="YX"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">YX</p>
+  <div class="site-description" itemprop="description">等一场秋风再起，花开如绎</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Re/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="YX">
+      <meta itemprop="description" content="等一场秋风再起，花开如绎">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="fallsilkworm's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          攻防世界进阶Re
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-11-05 15:38:48 / 修改时间：15:44:31" itemprop="dateCreated datePublished" datetime="2021-11-05T15:38:48+08:00">2021-11-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Bin/" itemprop="url" rel="index"><span itemprop="name">Bin</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="攻防世界Re进阶区"><a href="#攻防世界Re进阶区" class="headerlink" title="攻防世界Re进阶区"></a>攻防世界Re进阶区</h2><h3 id="Shuffle"><a href="#Shuffle" class="headerlink" title="Shuffle"></a>Shuffle</h3><p>查，32位，直接拖IDA，看到定义了很多字符，尝试按个R</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Re/image-20210721213826289.png" alt="image-20210721213826289"></p>
+<p>直截了当的flag</p>
+<h3 id="dmd-50"><a href="#dmd-50" class="headerlink" title="dmd-50"></a>dmd-50</h3><p>查后64位，拖IDA，跟上一题好像，也是定义一堆字符。按R</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Re/image-20210721215004064.png" alt="image-20210721215004064"></p>
+<p>往上翻翻看见了md5，先拿去解密</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Re/image-20210721215101094.png" alt="image-20210721215101094"></p>
+<p>好短啊感觉不太像。查看wp，得知它需要用md5加密后提交，但是要小写的</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Re/image-20210721215139018.png" alt="image-20210721215139018"></p>
+<h3 id="Guess-the-Number"><a href="#Guess-the-Number" class="headerlink" title="Guess-the-Number"></a>Guess-the-Number</h3><p>拿到jar包肯定看Java源码</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Re/image-20210721210928845.png" alt="image-20210721210928845"></p>
+<p>直接除以5取整数可求得<strong>guess_number</strong>为<strong>309137378</strong></p>
+<p>接下来打开jar包，要用唯一路径打开，输入得到的number</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Re/image-20210721211043876.png" alt="image-20210721211043876"></p>
+<h3 id="answer-to-everything"><a href="#answer-to-everything" class="headerlink" title="answer_to_everything"></a>answer_to_everything</h3><p>知识补充：<a target="_blank" rel="noopener" href="https://blog.csdn.net/zyhlwzy/article/details/77967255">SHA1加密算法_</a></p>
+<p>64位elf，IDA</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Re/image-20211102161336660-16360982468217.png" alt="image-20211102161336660"></p>
+<p>直接分析可知道kdudpeh就是flag，但是没交对，根据puts的内容可以知道他提交的是一个密码，所以kdudpeh要拿去加密，又根据题目得知有关于SHA1，所以直接拿去加密<a target="_blank" rel="noopener" href="http://www.ttmd5.com/hash.php?type=5">sha1在线解密 在线加密 (ttmd5.com)</a></p>
+<p>sha1（kdudpeh）= 80ee2a3fe31da904c596d993f7f1de4827c1450a</p>
+<h3 id="666"><a href="#666" class="headerlink" title="666"></a>666</h3><p>IDA直接进encode</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Re/image-20211102165006801-16360982703248.png" alt="image-20211102165006801"></p>
+<p>for循环里是加密方式，很简单。跟进key得知长度为0x12即18</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Re/image-20211102165206372-163609827032410.png" alt="image-20211102165206372"></p>
+<p>随后往上看见了加密字符串，提取出来直接逆向</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">enflag=[ <span class="number">0x69</span>, <span class="number">0x7A</span>, <span class="number">0x77</span>, <span class="number">0x68</span>, <span class="number">0x72</span>, <span class="number">0x6F</span>, <span class="number">0x7A</span>, <span class="number">0x22</span>, <span class="number">0x22</span>, <span class="number">0x77</span>,</span><br><span class="line">  <span class="number">0x22</span>, <span class="number">0x76</span>, <span class="number">0x2E</span>, <span class="number">0x4B</span>, <span class="number">0x22</span>, <span class="number">0x2E</span>, <span class="number">0x4E</span>, <span class="number">0x69</span>, <span class="number">0x00</span>]</span><br><span class="line">flag=<span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="number">18</span>,<span class="number">3</span>):</span><br><span class="line">    flag+=<span class="built_in">chr</span>((<span class="number">18</span>^enflag[i])-<span class="number">6</span>)</span><br><span class="line">    flag+=<span class="built_in">chr</span>((<span class="number">18</span>^enflag[i+<span class="number">1</span>])+<span class="number">6</span>)</span><br><span class="line">    flag+=<span class="built_in">chr</span>(<span class="number">18</span>^enflag[i+<span class="number">2</span>]^<span class="number">6</span>)    </span><br><span class="line">print(flag)</span><br></pre></td></tr></table></figure>
+<p>知识补充：异或的运算优先级小于+和-，在写脚本的时候需要用小括号括起来。</p>
+<h3 id="srm-50"><a href="#srm-50" class="headerlink" title="srm-50"></a>srm-50</h3><p>绕弯签到题，查完没问题直接IDA很清楚看到</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Re/image-20211103170148890-16360982703249.png" alt="image-20211103170148890"></p>
+<p>按照数组的正常顺序重新排就是flag了</p>
+<p>CZ9dmq4c8g9G7bAX</p>
+<h3 id="Mysterious"><a href="#Mysterious" class="headerlink" title="Mysterious"></a>Mysterious</h3><p>签到题，照例无问题IDA</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Re/image-20211103171351361-163609827032411.png" alt="image-20211103171351361"></p>
+<p>知识补充：<a target="_blank" rel="noopener" href="https://www.runoob.com/cprogramming/c-function-strcat.html">C 库函数 – strcat() | 菜鸟教程 (runoob.com)</a></p>
+<p>flag{123_Buff3r_0v3rf|0w}</p>
+<h3 id="re1-100"><a href="#re1-100" class="headerlink" title="re1-100"></a>re1-100</h3><p>常规IDA</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Re/image-20211103173633113-163609827032412.png" alt="image-20211103173633113"></p>
+<p>直接交是错的，跟进confuseKey</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Re/image-20211103173751044-163609827032413.png" alt="image-20211103173751044"></p>
+<p>知识补充：<a target="_blank" rel="noopener" href="https://www.runoob.com/cprogramming/c-function-strncpy.html">C 库函数 – strncpy() | 菜鸟教程 (runoob.com)</a></p>
+<p>意思就是把上述看到的字符串分成四个部分，每部分十个字符，然后再按照下面的顺序重新排列</p>
+<p>所以分好是 daf29f5903（dest） 4938ae4efd（v7） 53fc275d81（src） 053ed5be8c（v15）</p>
+<p>按要求排好就是 53fc275d81053ed5be8cdaf29f59034938ae4efd</p>
+<h3 id="secret-galaxy-300"><a href="#secret-galaxy-300" class="headerlink" title="secret-galaxy-300"></a>secret-galaxy-300</h3><p>wp参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43252204/article/details/108450341">(14条消息) CTF-攻防世界-Reverse-(secret-galaxy-300)_Beglage-CSDN博客</a></p>
+<p>IDA主函数没东西，搜字符串发现</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Re/image-20211103180046239-163609827032414.png" alt="image-20211103180046239"></p>
+<p>追这串字符串的所在函数</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Re/image-20211103180214773-163609827032415.png" alt="image-20211103180214773"></p>
+<p>全是赋值操作，又有有关字符。其中可能藏着flag</p>
+<p>然后用OD动调在开始和结束处设置断点 之后调试一波就出来了</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E8%BF%9B%E9%98%B6Re/image-20211103180329803-163609827032416.png" alt="image-20211103180329803"></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Re%E5%88%B7%E9%A2%98/" rel="tag"># Re刷题</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/11/05/Buuctf-pwn/" rel="prev" title="Buuctf pwn">
+                  <i class="fa fa-chevron-left"></i> Buuctf pwn
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YX</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

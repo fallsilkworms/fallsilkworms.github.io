@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/ac1.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"fallsilkworms.github.io","root":"/","images":"/images","scheme":"Muse","version":"8.2.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+  </script>
+<meta name="description" content="攻防世界Re新手区open-source一段C的代码，一行行看，利用逆向思维反着来就行 123456789101112131415161718192021222324252627#include &lt;stdio.h&gt;#include &lt;string.h&gt;int main(int argc, char *argv[]) &amp;#123;    if (argc !&#x3D; 4) &amp;#12">
+<meta property="og:type" content="article">
+<meta property="og:title" content="攻防世界新手Re">
+<meta property="og:url" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/index.html">
+<meta property="og:site_name" content="fallsilkworm&#39;s Blog">
+<meta property="og:description" content="攻防世界Re新手区open-source一段C的代码，一行行看，利用逆向思维反着来就行 123456789101112131415161718192021222324252627#include &lt;stdio.h&gt;#include &lt;string.h&gt;int main(int argc, char *argv[]) &amp;#123;    if (argc !&#x3D; 4) &amp;#12">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210723204529916.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717111904925.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717111847983.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717131544368.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717131604221.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717131653612.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717131735829.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717133351831.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717134157670.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717134226130.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717134433247.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717135043548.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717135954434.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717140107815.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717140929475.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717143821052.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717153702029.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210718192554946.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717155525760.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717160318691.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717160100419.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717161812007.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717174017012.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717174057614.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717174226983.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717174301145.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717174353300.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717174414940.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717181731840.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717182011419.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717183900450.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717202211618.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210718201249537.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210718201405267.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210718201459667.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210718201649763.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210718202224765.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210718202514589.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210718202635361.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210718203254689.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210718203545263.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210718203706001.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210718204242092.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210718204312647.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/3.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/4.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/5.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/6.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/7.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/8.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/9.png">
+<meta property="og:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/10.png">
+<meta property="article:published_time" content="2021-11-05T07:28:51.000Z">
+<meta property="article:modified_time" content="2021-11-05T07:29:35.252Z">
+<meta property="article:author" content="YX">
+<meta property="article:tag" content="Re刷题">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210723204529916.png">
+
+
+<link rel="canonical" href="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<title>攻防世界新手Re | fallsilkworm's Blog</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">fallsilkworm's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">一只千年秋蚕</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CRe%E6%96%B0%E6%89%8B%E5%8C%BA"><span class="nav-number">1.</span> <span class="nav-text">攻防世界Re新手区</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#open-source"><span class="nav-number">1.1.</span> <span class="nav-text">open-source</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#game"><span class="nav-number">1.2.</span> <span class="nav-text">game</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hello-CTF"><span class="nav-number">1.3.</span> <span class="nav-text">Hello,CTF</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#simple-unpack"><span class="nav-number">1.4.</span> <span class="nav-text">simple-unpack</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#logmein"><span class="nav-number">1.5.</span> <span class="nav-text">logmein</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#no-strings-attached"><span class="nav-number">1.6.</span> <span class="nav-text">no-strings-attached</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getit"><span class="nav-number">1.7.</span> <span class="nav-text">getit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#python-trade"><span class="nav-number">1.8.</span> <span class="nav-text">python-trade</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#csaw2013"><span class="nav-number">1.9.</span> <span class="nav-text">csaw2013</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#maze"><span class="nav-number">1.10.</span> <span class="nav-text">maze</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="YX"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">YX</p>
+  <div class="site-description" itemprop="description">等一场秋风再起，花开如绎</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://fallsilkworms.github.io/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="YX">
+      <meta itemprop="description" content="等一场秋风再起，花开如绎">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="fallsilkworm's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          攻防世界新手Re
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-11-05 15:28:51 / 修改时间：15:29:35" itemprop="dateCreated datePublished" datetime="2021-11-05T15:28:51+08:00">2021-11-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Bin/" itemprop="url" rel="index"><span itemprop="name">Bin</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="攻防世界Re新手区"><a href="#攻防世界Re新手区" class="headerlink" title="攻防世界Re新手区"></a>攻防世界Re新手区</h2><h3 id="open-source"><a href="#open-source" class="headerlink" title="open-source"></a>open-source</h3><p>一段C的代码，一行行看，利用逆向思维反着来就行</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (argc != <span class="number">4</span>) &#123;</span><br><span class="line">    	<span class="built_in">printf</span>(<span class="string">&quot;what?\n&quot;</span>);</span><br><span class="line">    	<span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> first = atoi(argv[<span class="number">1</span>]);</span><br><span class="line">    <span class="keyword">if</span> (first != <span class="number">0xcafe</span>) &#123;<span class="comment">//得出first=0xcafe转换成10进值为51966</span></span><br><span class="line">    	<span class="built_in">printf</span>(<span class="string">&quot;you are wrong, sorry.\n&quot;</span>);</span><br><span class="line">    	<span class="built_in">exit</span>(<span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> second = atoi(argv[<span class="number">2</span>]);</span><br><span class="line">    <span class="keyword">if</span> (second % <span class="number">5</span> == <span class="number">3</span> || second % <span class="number">17</span> != <span class="number">8</span>) &#123;<span class="comment">//second=25</span></span><br><span class="line">    	<span class="built_in">printf</span>(<span class="string">&quot;ha, you won&#x27;t get it!\n&quot;</span>);</span><br><span class="line">    	<span class="built_in">exit</span>(<span class="number">3</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">strcmp</span>(<span class="string">&quot;h4cky0u&quot;</span>, argv[<span class="number">3</span>])) &#123;<span class="comment">//argv[3]=’h4cky0u’</span></span><br><span class="line">    	<span class="built_in">printf</span>(<span class="string">&quot;so close, dude!\n&quot;</span>);</span><br><span class="line">    	<span class="built_in">exit</span>(<span class="number">4</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Brr wrrr grr\n&quot;</span>);</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> hash = first * <span class="number">31337</span> + (second % <span class="number">17</span>) * <span class="number">11</span> + <span class="built_in">strlen</span>(argv[<span class="number">3</span>]) - <span class="number">1615810207</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Get your key: &quot;</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%x\n&quot;</span>, hash);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后直接写出脚本</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> first = <span class="number">51966</span>;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> second=<span class="number">25</span>;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> hash = first * <span class="number">31337</span> + (second % <span class="number">17</span>) * <span class="number">11</span> + <span class="built_in">strlen</span>(<span class="string">&quot;h4cky0u&quot;</span>) - <span class="number">1615810207</span>;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;Get your key: &quot;</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%x\n&quot;</span>, hash);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210723204529916.png" alt="image-20210723204529916"></p>
+<h3 id="game"><a href="#game" class="headerlink" title="game"></a>game</h3><p>法一：直接运行看到是<img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717111904925.png" alt="image-20210717111904925"></p>
+<p>类似数学？随便按1~8顺序按了一下，神奇的事情发生了。。。一脸懵逼，很突然的我也不知道原理</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717111847983.png" alt="image-20210717111847983"></p>
+<p>法二：其实考点是算法</p>
+<p>拖IDA，先找字符串发现没东西，然后main，f5</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717131544368.png" alt="image-20210717131544368"></p>
+<p>似乎没东西，找看起来有东西的函数</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717131604221.png" alt="image-20210717131604221"></p>
+<p>很明显调用了东西，点进去康康发现flag字眼</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717131653612.png" alt="image-20210717131653612"></p>
+<p>他是一直到<img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717131735829.png" alt="image-20210717131735829"></p>
+<p>重点是循环语句那段</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt; <span class="number">56</span>; ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    *(&amp;v2 + i) ^= *(&amp;v59 + i);<span class="comment">//异或运算</span></span><br><span class="line">    *(&amp;v2 + i) ^= <span class="number">0x13</span>u;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> sub_45A7BE((<span class="keyword">int</span>)<span class="string">&quot;%s\n&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">a= [<span class="number">18</span>,<span class="number">64</span>,<span class="number">98</span>,<span class="number">5</span>,<span class="number">2</span>,<span class="number">4</span>,<span class="number">6</span>,<span class="number">3</span>,<span class="number">6</span>,<span class="number">48</span>,<span class="number">49</span>,<span class="number">65</span>,<span class="number">32</span>,<span class="number">12</span>,<span class="number">48</span>,<span class="number">65</span>,<span class="number">31</span>,<span class="number">78</span>,<span class="number">62</span>,<span class="number">32</span>,<span class="number">49</span>,<span class="number">32</span>,<span class="number">1</span>,<span class="number">57</span>,<span class="number">96</span>,<span class="number">3</span>,<span class="number">21</span>,<span class="number">9</span>,<span class="number">4</span>,<span class="number">62</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">4</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">44</span>,<span class="number">65</span>,<span class="number">78</span>,<span class="number">32</span>,<span class="number">16</span>,<span class="number">97</span>,<span class="number">54</span>,<span class="number">16</span>,<span class="number">44</span>,<span class="number">52</span>,<span class="number">32</span>,<span class="number">64</span>,<span class="number">89</span>,<span class="number">45</span>,<span class="number">32</span>,<span class="number">65</span>,<span class="number">15</span>,<span class="number">34</span>,<span class="number">18</span>,<span class="number">16</span>,<span class="number">0</span>]</span><br><span class="line">b=[<span class="number">123</span>,<span class="number">32</span>,<span class="number">18</span>,<span class="number">98</span>,<span class="number">119</span>,<span class="number">108</span>,<span class="number">65</span>,<span class="number">41</span>,<span class="number">124</span>,<span class="number">80</span>,<span class="number">125</span>,<span class="number">38</span>,<span class="number">124</span>,<span class="number">111</span>,<span class="number">74</span>,<span class="number">49</span>,<span class="number">83</span>,<span class="number">108</span>,<span class="number">94</span>,<span class="number">108</span>,<span class="number">84</span>,<span class="number">6</span>,<span class="number">96</span>,<span class="number">83</span>,<span class="number">44</span>,<span class="number">121</span>,<span class="number">104</span>,<span class="number">110</span>,<span class="number">32</span>,<span class="number">95</span>,<span class="number">117</span>,<span class="number">101</span>,<span class="number">99</span>,<span class="number">123</span>,<span class="number">127</span>,<span class="number">119</span>,<span class="number">96</span>,<span class="number">48</span>,<span class="number">107</span>,<span class="number">71</span>,<span class="number">92</span>,<span class="number">29</span>,<span class="number">81</span>,<span class="number">107</span>,<span class="number">90</span>,<span class="number">85</span>,<span class="number">64</span>,<span class="number">12</span>,<span class="number">43</span>,<span class="number">76</span>,<span class="number">86</span>,<span class="number">13</span>,<span class="number">114</span>,<span class="number">1</span>,<span class="number">117</span>,<span class="number">126</span>,<span class="number">0</span>]</span><br><span class="line">flag = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">56</span>):</span><br><span class="line">    a[i] = a[i]^b[i]</span><br><span class="line">    a[i] = a[i]^<span class="number">19</span><span class="comment">#按R转换上文字符等于19</span></span><br><span class="line">    flag+=<span class="built_in">chr</span>(a[i])</span><br><span class="line">print(flag)</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717133351831.png" alt="image-20210717133351831"></p>
+<h3 id="Hello-CTF"><a href="#Hello-CTF" class="headerlink" title="Hello,CTF"></a>Hello,CTF</h3><p>先跑程序</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717134157670.png" alt="image-20210717134157670"></p>
+<p>要输入啥的不知道，肯定是flag。拖IDA梭哈<img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717134226130.png" alt="image-20210717134226130"></p>
+<p><code>strcpy(&amp;v13, &quot;437261636b4d654a757374466f7246756e&quot;);</code></p>
+<p>明显flag就是他。。一个16进制码（数字0<del>9和字母A</del>F），直接转码</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717134433247.png" alt="image-20210717134433247"></p>
+<h3 id="simple-unpack"><a href="#simple-unpack" class="headerlink" title="simple-unpack"></a>simple-unpack</h3><p>考点：脱壳</p>
+<p>从题目已知这个是加壳文件，工具先查一下壳</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717135043548.png" alt="image-20210717135043548"></p>
+<p>下面的信息显示64bit知道是64位文件，upx知道是upx加壳</p>
+<p>那就直接脱掉</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717135954434.png" alt="image-20210717135954434"></p>
+<p>然后拖入IDA</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717140107815.png" alt="image-20210717140107815"></p>
+<p>映入眼帘。</p>
+<p>法二：自己脱壳做出来后，网上说这个不用脱壳。。。直接拖入010一查就有。。像个misc似的</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717140929475.png" alt="image-20210717140929475"></p>
+<h3 id="logmein"><a href="#logmein" class="headerlink" title="logmein"></a>logmein</h3><p>拖入IDA，main F5</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717143821052.png" alt="image-20210717143821052"></p>
+<p>先将v7按R变成字符<img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717153702029.png" alt="image-20210717153702029">然后倒过来取，即</p>
+<p>v7=harambe，然后v8肯定是加密后的flag了</p>
+<p>重点是循环语句</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt; <span class="built_in">strlen</span>(s); ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> ( i &gt;= <span class="built_in">strlen</span>(v8) )</span><br><span class="line">      ((<span class="keyword">void</span> (*)(<span class="keyword">void</span>))sub_4007C0)();</span><br><span class="line">    <span class="keyword">if</span> ( s[i] != (<span class="keyword">char</span>)(*((_BYTE *)&amp;v7 + i % v6) ^ v8[i]) )</span><br><span class="line">      ((<span class="keyword">void</span> (*)(<span class="keyword">void</span>))sub_4007C0)();</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>脚本</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a=<span class="string">&#x27;harambe&#x27;</span></span><br><span class="line">b=<span class="string">&#x27;:\&quot;AL_RT^L*.?+6/46&#x27;</span></span><br><span class="line">flag = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(b)):</span><br><span class="line">    c = <span class="built_in">ord</span>(a[i%<span class="number">7</span>])^<span class="built_in">ord</span>(b[i])</span><br><span class="line">    flag+=<span class="built_in">chr</span>(c)</span><br><span class="line">print(flag)</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210718192554946.png" alt="image-20210718192554946"></p>
+<p><a target="_blank" rel="noopener" href="https://www.runoob.com/python/python-func-ord.html">ord()</a>函数是 chr() 函数（对于8位的ASCII字符串）或 unichr() 函数（对于Unicode对象）的配对函数，它以一个字符（长度为1的字符串）作为参数，返回对应的 ASCII 数值，或者 Unicode 数值，如果所给的 Unicode 字符超出了你的 Python 定义范围，则会引发一个 TypeError 的异常。</p>
+<h3 id="no-strings-attached"><a href="#no-strings-attached" class="headerlink" title="no-strings-attached"></a>no-strings-attached</h3><p>先查知道是32位ELF，再IDA</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717155525760.png" alt="image-20210717155525760"></p>
+<p>觉得最后一个函数里有东西，点进去</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717160318691.png" alt="image-20210717160318691"></p>
+<p>发现了一个看起来似乎很关键的函数decrypt，点进去看到<img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717160100419.png" alt="image-20210717160100419"></p>
+<p>很明显返回的dest里有flag，而s和a2里面或许有dest相关的东西。但是看了半天点了半天没东西，直接看wp</p>
+<p>回去看汇编</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717161812007.png" alt="image-20210717161812007"></p>
+<p>通过汇编代码，了解到<strong>eax</strong>保存<strong>dest</strong>的值后传递给<strong>s2</strong>。</p>
+<p>不需要去分析decrypt的内容了，直接上gdb动态调试。</p>
+<p>gdb动态调试指令：</p>
+<p><strong>下断点：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">b *地址</span><br></pre></td></tr></table></figure>
+<p>由IDA看出decrypt的地址</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717174017012.png" alt="image-20210717174017012"></p>
+<p>所以在他下一行加个断点</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717174057614.png" alt="image-20210717174057614"></p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717174226983.png" alt="image-20210717174226983"></p>
+<p><strong>执行到断点所在位置</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">r</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717174301145.png" alt="image-20210717174301145"></p>
+<p>单步跟踪：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">n</span><br></pre></td></tr></table></figure>
+<p>由于直接下断点在他的下一行所以不用跟了</p>
+<p><strong>查看寄存器保存的内容：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">i r</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717174353300.png" alt="image-20210717174353300"></p>
+<p><strong>查看内存地址（寄存器）中的值：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x&#x2F;5sw $eax</span><br></pre></td></tr></table></figure>
+<p><strong>参数含义：<br>x:examine–&gt;检测内存地址中保存的值<br>5:显示5行目标数据<br>s:以字符串形式打印<br>w:以双字打印</strong></p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717174414940.png" alt="image-20210717174414940"></p>
+<h3 id="getit"><a href="#getit" class="headerlink" title="getit"></a>getit</h3><p>查，IDA一把梭</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717181731840.png" alt="image-20210717181731840"></p>
+<p>好像没什么特别的</p>
+<p>重点看循环 </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> ( (<span class="keyword">signed</span> <span class="keyword">int</span>)v5 &lt; <span class="built_in">strlen</span>(s) )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> ( v5 &amp; <span class="number">1</span> )</span><br><span class="line">      v3 = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      v3 = <span class="number">-1</span>;</span><br><span class="line">    *(&amp;t + (<span class="keyword">signed</span> <span class="keyword">int</span>)v5 + <span class="number">10</span>) = s[(<span class="keyword">signed</span> <span class="keyword">int</span>)v5] + v3;</span><br><span class="line">    LODWORD(v5) = v5 + <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">strcpy</span>(filename, <span class="string">&quot;/tmp/flag.txt&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>好像也没看出什么，也没给s是啥。点了其他的函数也没东西，看wp。。。。</p>
+<p>玄机在s里，点进去就看见了（好家伙，原来字符串是给的呀。。）</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717182011419.png" alt="image-20210717182011419"></p>
+<p>然后对照伪代码写出脚本就行了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="string">&#x27;c61b68366edeb7bdce3c6820314b7498&#x27;</span></span><br><span class="line">flag = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(a)):</span><br><span class="line">    <span class="keyword">if</span> i&amp;<span class="number">1</span>:</span><br><span class="line">        x=<span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        x=-<span class="number">1</span></span><br><span class="line">    flag+=<span class="built_in">chr</span>(<span class="built_in">ord</span>(a[i])+x)</span><br><span class="line">print(flag)</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717183900450.png" alt="image-20210717183900450"></p>
+<h3 id="python-trade"><a href="#python-trade" class="headerlink" title="python-trade"></a>python-trade</h3><p>下载下来得到pyc文件，需要经过反编译得出原py文件</p>
+<p><a target="_blank" rel="noopener" href="https://tool.lu/pyc/">python反编译 - 在线工具 (tool.lu)</a></p>
+<p>py是：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">encode</span>(<span class="params">message</span>):</span></span><br><span class="line">    s = <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> message:</span><br><span class="line">        x = <span class="built_in">ord</span>(i) ^ <span class="number">32</span></span><br><span class="line">        x = x + <span class="number">16</span></span><br><span class="line">        s += <span class="built_in">chr</span>(x)</span><br><span class="line">    <span class="keyword">return</span> base64.b64encode(s)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">correct = <span class="string">&quot;XlNkVmtUI1MgXWBZXCFeKY+AaXNt&quot;</span><span class="comment">#密文</span></span><br><span class="line">flag = <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;Input flag:&quot;</span></span><br><span class="line">flag = raw_input()</span><br><span class="line"><span class="keyword">if</span> encode(flag) == correct:</span><br><span class="line">    <span class="built_in">print</span> <span class="string">&quot;correct&quot;</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span> <span class="string">&quot;wrong&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>很明显，中间那段是加密代码</p>
+<p>利用加密后的明文和加密代码往前推，写出解密代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line">s = <span class="string">&quot;XlNkVmtUI1MgXWBZXCFeKY+AaXNt&quot;</span></span><br><span class="line">a=base64.b64decode(s)</span><br><span class="line">flag=<span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> a:</span><br><span class="line">        i -= <span class="number">16</span></span><br><span class="line">        i ^= <span class="number">32</span></span><br><span class="line">        flag += <span class="built_in">chr</span>(i)</span><br><span class="line">print(flag)</span><br></pre></td></tr></table></figure>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210717202211618.png" alt="image-20210717202211618"></p>
+<h3 id="csaw2013"><a href="#csaw2013" class="headerlink" title="csaw2013"></a>csaw2013</h3><p>可执行文件先打开</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210718201249537.png" alt="image-20210718201249537"></p>
+<p>乱码。肯定无别的</p>
+<p>然后照例查后得知是32位，可以用OD打开</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210718201405267.png" alt="image-20210718201405267"></p>
+<p>先用IDA看看有些什么</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210718201459667.png" alt="image-20210718201459667"></p>
+<p>看到flag字眼，搞了一套没发现东西，它前面的lpMem似乎与Flag有东西。</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210718201649763.png" alt="image-20210718201649763"></p>
+<p>结果无。然后分析一下特殊语段if</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210718202224765.png" alt="image-20210718202224765"></p>
+<p>看出来if语句有个退出的函数，而它有弹出框，所以if语句并没有执行</p>
+<p>然后好像就看着没什么东西了。打开OD</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210718202514589.png" alt="image-20210718202514589"></p>
+<p>没什么头绪，往上随便翻翻看旁边注释注意到了Flag</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210718202635361.png" alt="image-20210718202635361"></p>
+<p>思路很清晰，肯定是从这里开始入手改东西让它这个弹出框显示不是乱码的窗体得到flag，也就是去让它执行那个if语句。</p>
+<p>这个jmp指令跳转到第二个MessageBox处就行了<img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210718203254689.png" alt="image-20210718203254689"></p>
+<p>因为可以看到它原来是直接跳过了两个文本框，所以不执行if语句。</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210718203545263.png" alt="image-20210718203545263"></p>
+<p>然后改这个。但是运行起来是不行的，然后人麻了。再看看就发现<img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210718203706001.png" alt="image-20210718203706001"></p>
+<p>这有个je指令先跳了，得先把它变成空操作指令nop，还有个int3下了断点，所以也先变成nop</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210718204242092.png" alt="image-20210718204242092"></p>
+<p>然后直接运行就有了</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/image-20210718204312647.png" alt="image-20210718204312647"></p>
+<h3 id="maze"><a href="#maze" class="headerlink" title="maze"></a>maze</h3><p>一套操作下来根本就没有头绪，直接看wp是迷宫问题](<a target="_blank" rel="noopener" href="https://ctf-wiki.github.io/ctf-wiki/reverse/maze/maze/">https://ctf-wiki.github.io/ctf-wiki/reverse/maze/maze/</a>)</p>
+<p>输入的是’.’,’0’,’o’,’O’,并以此来确定上下左右移动</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/3.png" alt="img"></p>
+<p>从这里可以看出先是进行判断，如果满足则进入判断，开头必须是以nctf{开头的</p>
+<p>然后往下分析</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/4.png" alt="img"></p>
+<p>从这里可以看出进行了四个判断，然后，进入四个函数()</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/5.png" alt="img"></p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/6.png" alt="img"></p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/7.png" alt="img"></p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/8.png" alt="img"></p>
+<p>从上往下以此追踪，可以发现这些函数会跳到lable15的位置，然后，对lable15分析，发现特殊的字符串</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/9.png" alt="img"></p>
+<p>然后，猜测可能是一个8*8的迷宫</p>
+<p><img src="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BRe/10.png" alt="img"></p>
+<p>走过迷宫，获得flag：nctf{o0oo00O000oooo..OO}</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Re%E5%88%B7%E9%A2%98/" rel="tag"># Re刷题</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/11/05/Buuctf-Re/" rel="prev" title="Buuctf-Re">
+                  <i class="fa fa-chevron-left"></i> Buuctf-Re
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/11/05/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C%E6%96%B0%E6%89%8BPwn/" rel="next" title="攻防世界新手Pwn">
+                  攻防世界新手Pwn <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YX</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
